@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace backoffice\modules\masterdata\controllers;
 
 use Yii;
-use backend\models\Region;
-use backend\models\search\RegionSearch;
-use sybase\SybaseController;
+use core\models\Region;
+use core\models\search\RegionSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -14,7 +13,7 @@ use yii\widgets\ActiveForm;
 /**
  * RegionController implements the CRUD actions for Region model.
  */
-class RegionController extends SybaseController
+class RegionController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -39,10 +38,6 @@ class RegionController extends SybaseController
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $searchModel = new RegionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,10 +55,6 @@ class RegionController extends SybaseController
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,10 +67,6 @@ class RegionController extends SybaseController
      */
     public function actionCreate($save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $render = 'create';
 
         $model = new Region();
@@ -123,10 +110,6 @@ class RegionController extends SybaseController
      */
     public function actionUpdate($id, $save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -191,7 +174,7 @@ class RegionController extends SybaseController
 
         $return = [];
 
-        $return['url'] = Yii::$app->urlManager->createUrl(['region/index']);
+        $return['url'] = Yii::$app->urlManager->createUrl([$this->module->id . '/region/index']);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;

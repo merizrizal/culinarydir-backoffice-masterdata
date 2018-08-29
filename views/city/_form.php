@@ -5,10 +5,10 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
-use backend\models\Province;
+use core\models\Province;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\City */
+/* @var $model core\models\City */
 /* @var $form yii\widgets\ActiveForm */
 
 kartik\select2\Select2Asset::register($this);
@@ -128,7 +128,8 @@ endif; ?>
 $jscript = '
     $("#city-province_id").select2({
         theme: "krajee",
-        placeholder: "Pilih"
+        placeholder: "Pilih",
+        minimumResultsForSearch: "Infinity"
     });
 ';
 

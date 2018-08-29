@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\ProductCategorySearch */
+/* @var $searchModel core\models\search\ProductCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
@@ -33,6 +33,7 @@ if ($status !== null) :
 endif;
 
 $this->title = Yii::t('app', 'Product Category');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category & Product'), 'url' => ['product-category/index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>
@@ -82,7 +83,14 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'parent.name',
+            [
+                'attribute' => 'is_parent',
+                'format' => 'raw',
+                'filter' =>  [true => 'True', false => 'False'],
+                'value' => function ($model, $index, $widget) {
+                    return Html::checkbox('is_parent[]', $model->is_parent, ['value' => $index, 'disabled' => 'disabled']);
+                },
+            ],
             'name',
             [
                 'attribute' => 'is_active',

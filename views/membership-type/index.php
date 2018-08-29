@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\MembershipTypeSearch */
+/* @var $searchModel core\models\search\MembershipTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
@@ -33,6 +33,7 @@ if ($status !== null) :
 endif;
 
 $this->title = Yii::t('app', 'Membership Type');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Membership'), 'url' => ['product-service/index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>
@@ -84,11 +85,11 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 
             'name',
             [
-                'attribute' => 'is_free',
+                'attribute' => 'is_premium',
                 'format' => 'raw',
                 'filter' =>  [true => 'True', false => 'False'],
                 'value' => function ($model, $index, $widget) {
-                    return Html::checkbox('is_free[]', $model->is_free, ['value' => $index, 'disabled' => 'disabled']);
+                    return Html::checkbox('is_premium[]', $model->is_premium, ['value' => $index, 'disabled' => 'disabled']);
                 },
             ],
             'time_limit',

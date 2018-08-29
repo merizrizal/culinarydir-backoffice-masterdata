@@ -7,11 +7,11 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $searchModel core\models\ProvinceSearch */
+/* @var $searchModel core\models\search\ProductServiceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'Province',
+    'modelClass' => 'ProductService',
 ]);
 
 $ajaxRequest->index();
@@ -32,13 +32,13 @@ if ($status !== null) :
 
 endif;
 
-$this->title = Yii::t('app', 'Province');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Area'), 'url' => ['province/index']];
+$this->title = Yii::t('app', 'Product Service');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Membership'), 'url' => ['product-service/index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>
 
-<div class="province-index">
+<div class="product-service-index">
 
     <?php
     $modalDialog = new ModalDialog([
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
     ]); ?>
 
     <?= GridView::widget([
-        'id' => 'grid-view-province',
+        'id' => 'grid-view-product-service',
         'dataProvider' => $dataProvider,
         'pjax' => false,
         'bordered' => false,
@@ -84,6 +84,15 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             ['class' => 'yii\grid\SerialColumn'],
 
             'name',
+            'note:text',
+            [
+                'attribute' => 'not_active',
+                'format' => 'raw',
+                'filter' =>  [true => 'True', false => 'False'],
+                'value' => function ($model, $index, $widget) {
+                    return Html::checkbox('not_active[]', $model->not_active, ['value' => $index, 'disabled' => 'disabled']);
+                },
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -138,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             'class' => 'table table-striped table-hover'
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
-            return ['id' => $model['id'], 'class' => 'row-grid-view-province', 'style' => 'cursor: pointer;'];
+            return ['id' => $model['id'], 'class' => 'row-grid-view-product-service', 'style' => 'cursor: pointer;'];
         },
         'pager' => [
             'firstPageLabel' => '<i class="fa fa-angle-double-left"></i>',
@@ -153,13 +162,19 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 <?= $modalDialog->renderDialog() ?>
 
 <?php
+$this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/skins/all.css', ['depends' => 'yii\web\YiiAsset']);
+
+$this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
+
 $jscript = ''
+    . Yii::$app->params['checkbox-radio-script']()
+    . '$(".iCheck-helper").parent().removeClass("disabled");'
     . $modalDialog->getScript() . '
 
     $("div.container.body").off("click");
     $("div.container.body").on("click", function(event) {
 
-        if ($(event.target).parent(".row-grid-view-province").length > 0) {
+        if ($(event.target).parent(".row-grid-view-product-service").length > 0) {
 
             $("td").not(event.target).popover("destroy");
         } else {
@@ -167,10 +182,10 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-province").popover({
+    $(".row-grid-view-product-service").popover({
         trigger: "click",
         placement: "top",
-        container: ".row-grid-view-province",
+        container: ".row-grid-view-product-service",
         html: true,
         selector: "td",
         content: function () {
@@ -180,7 +195,7 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-province").on("shown.bs.popover", function(event) {
+    $(".row-grid-view-product-service").on("shown.bs.popover", function(event) {
 
         $(\'[data-toggle="tooltip"]\').tooltip();
 

@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\VillageSearch */
+/* @var $searchModel core\models\search\VillageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
@@ -33,6 +33,7 @@ if ($status !== null) :
 endif;
 
 $this->title = Yii::t('app', 'Village');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Area'), 'url' => ['province/index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>

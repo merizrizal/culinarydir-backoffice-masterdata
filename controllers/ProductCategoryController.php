@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace backoffice\modules\masterdata\controllers;
 
 use Yii;
-use backend\models\ProductCategory;
-use backend\models\search\ProductCategorySearch;
-use sybase\SybaseController;
+use core\models\ProductCategory;
+use core\models\search\ProductCategorySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -14,7 +13,7 @@ use yii\widgets\ActiveForm;
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
  */
-class ProductCategoryController extends SybaseController
+class ProductCategoryController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -39,10 +38,6 @@ class ProductCategoryController extends SybaseController
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $searchModel = new ProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,10 +55,6 @@ class ProductCategoryController extends SybaseController
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,10 +67,6 @@ class ProductCategoryController extends SybaseController
      */
     public function actionCreate($save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $render = 'create';
 
         $model = new ProductCategory();
@@ -123,10 +110,6 @@ class ProductCategoryController extends SybaseController
      */
     public function actionUpdate($id, $save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -191,7 +174,7 @@ class ProductCategoryController extends SybaseController
 
         $return = [];
 
-        $return['url'] = Yii::$app->urlManager->createUrl(['product-category/index']);
+        $return['url'] = Yii::$app->urlManager->createUrl([$this->module->id . '/product-category/index']);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;

@@ -5,10 +5,9 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
-use backend\models\ProductCategory;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\ProductCategory */
+/* @var $model core\models\ProductCategory */
 /* @var $form yii\widgets\ActiveForm */
 
 kartik\select2\Select2Asset::register($this);
@@ -87,17 +86,7 @@ endif; ?>
 
                     <div class="x_content">
 
-                        <?= $form->field($model, 'parent_id')->dropDownList(
-                                ArrayHelper::map(
-                                    ProductCategory::find()->andWhere(['IS', 'parent_id', NULL])->andWhere(['is_active' => 1])->orderBy('name')->asArray()->all(),
-                                    'id',
-                                    function($data) {
-                                        return $data['name'];
-                                    }
-                                ),
-                                [
-                                    'prompt' => '',
-                                ]) ?>
+                        <?= $form->field($model, 'is_parent')->checkbox(['value' => true], false) ?>
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -130,11 +119,4 @@ $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/
 
 $this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
 
-$jscript = '
-    $("#productcategory-parent_id").select2({
-        theme: "krajee",
-        placeholder: "Pilih"
-    });
-';
-
-$this->registerJs($jscript . Yii::$app->params['checkbox-radio-script']()); ?>
+$this->registerJs(Yii::$app->params['checkbox-radio-script']()); ?>

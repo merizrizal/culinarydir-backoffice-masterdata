@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\ProductCategory */
+/* @var $model core\models\ProductCategory */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'ProductCategory',
@@ -32,6 +32,7 @@ if ($status !== null) :
 endif;
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category & Product'), 'url' => ['product-category/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Category'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
@@ -85,7 +86,11 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         ],
                         'attributes' => [
                             'id',
-                            'parent_id',
+                            [
+                                'attribute' => 'is_parent',
+                                'format' => 'raw',
+                                'value' => Html::checkbox('is_parent', $model->is_parent, ['value' => $model->is_parent, 'disabled' => 'disabled']),
+                            ],
                             'name',
                             [
                                 'attribute' => 'is_active',

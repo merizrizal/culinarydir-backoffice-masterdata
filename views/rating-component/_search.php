@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\search\RatingComponentSearch */
+/* @var $model core\models\search\RatingComponentSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\RatingComponentSearch */
+/* @var $searchModel core\models\search\RatingComponentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
@@ -97,9 +97,6 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '
                     <div class="btn-container hide">
-                        <div class="btn-group btn-group-xs" role="group" style="width: 125px">
-                            {view}{update}{delete}{up}{down}
-                        </div>
                         <div class="visible-lg visible-md">
                             <div class="btn-group btn-group-md" role="group" style="width: 200px">
                                 {view}{update}{delete}{up}{down}

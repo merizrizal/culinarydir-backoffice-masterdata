@@ -5,10 +5,10 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
-use backend\models\Region;
+use core\models\Region;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\District */
+/* @var $model core\models\District */
 /* @var $form yii\widgets\ActiveForm */
 
 kartik\select2\Select2Asset::register($this);

@@ -3,9 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\ProductCategory */
+/* @var $model core\models\ProductCategory */
 
 $this->title = 'Update ' . Yii::t('app', 'Product Category') . ' : ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category & Product'), 'url' => ['product-category/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Category'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

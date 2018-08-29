@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace backoffice\modules\masterdata\controllers;
 
 use Yii;
-use backend\models\Village;
-use backend\models\search\VillageSearch;
-use sybase\SybaseController;
+use core\models\Village;
+use core\models\search\VillageSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -14,7 +13,7 @@ use yii\widgets\ActiveForm;
 /**
  * VillageController implements the CRUD actions for Village model.
  */
-class VillageController extends SybaseController
+class VillageController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -39,10 +38,6 @@ class VillageController extends SybaseController
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $searchModel = new VillageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,10 +55,6 @@ class VillageController extends SybaseController
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,10 +67,6 @@ class VillageController extends SybaseController
      */
     public function actionCreate($save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $render = 'create';
 
         $model = new Village();
@@ -123,10 +110,6 @@ class VillageController extends SybaseController
      */
     public function actionUpdate($id, $save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -191,7 +174,7 @@ class VillageController extends SybaseController
 
         $return = [];
 
-        $return['url'] = Yii::$app->urlManager->createUrl(['village/index']);
+        $return['url'] = Yii::$app->urlManager->createUrl([$this->module->id . '/village/index']);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;

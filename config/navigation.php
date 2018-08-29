@@ -8,27 +8,82 @@ return [
                 'url' => [''],
                 'isDirect' => true,
             ],
-            'membershipType' => [
-                'label' => 'Membership Type',
-                'iconClass' => 'fa fa-star',
-                'url' => ['marketing/registry-business/index'],
-                'isDirect' => false,
-            ],
-            'membership' => [
-                'label' => 'Membership',
-                'iconClass' => 'fa fa-star',
+            'productAndMembership' => [
+                'label' => 'Product Membership',
+                'iconClass' => 'fa fa-award',
                 'navigation' => [
-                    'allRegistry' => [
-                        'label' => 'All Registry',
-                        'url' => ['marketing/registry-business/index'],
+                    'ProductService' => [
+                        'label' => 'Product Service',
+                        'url' => ['masterdata/product-service/index'],
                         'isDirect' => false,
                     ],
-                    'myRegistry' => [
-                        'label' => 'My Registry',
-                        'url' => ['marketing/registry-business/index', 'type' => 'my'],
+                    'membershipType' => [
+                        'label' => 'Membership Type',
+                        'url' => ['masterdata/membership-type/index'],
+                        'isDirect' => false,
+                    ]
+                ]
+            ],
+            'productCategory' => [
+                'label' => 'Product Category',
+                'iconClass' => 'fa fa-utensils',
+                'url' => ['masterdata/product-category/index'],
+                'isDirect' => false,
+            ],
+            'businessCategory' => [
+                'label' => 'Business Category',
+                'iconClass' => 'fa fa-building',
+                'url' => ['masterdata/category/index'],
+                'isDirect' => false,
+            ],
+            'facility' => [
+                'label' => 'Facility',
+                'iconClass' => 'fa fa-couch',
+                'url' => ['masterdata/facility/index'],
+                'isDirect' => false,
+            ],
+            'ratingComponent' => [
+                'label' => 'Rating Component',
+                'iconClass' => 'fa fa-star',
+                'url' => ['masterdata/rating-component/index'],
+                'isDirect' => false,
+            ],
+            'area' => [
+                'label' => 'Area',
+                'iconClass' => 'fa fa-globe-asia',
+                'navigation' => [
+                    'province' => [
+                        'label' => 'Province',
+                        'url' => ['masterdata/province/index'],
+                        'isDirect' => false,
+                    ],
+                    'city' => [
+                        'label' => 'City',
+                        'url' => ['masterdata/city/index'],
+                        'isDirect' => false,
+                    ],
+                    'region' => [
+                        'label' => 'Region',
+                        'url' => ['masterdata/region/index'],
+                        'isDirect' => false,
+                    ],
+                    'district' => [
+                        'label' => 'District',
+                        'url' => ['masterdata/district/index'],
+                        'isDirect' => false,
+                    ],
+                    'village' => [
+                        'label' => 'Village',
+                        'url' => ['masterdata/village/index'],
                         'isDirect' => false,
                     ],
                 ]
+            ],
+            'statusApproval' => [
+                'label' => 'Approval Status',
+                'iconClass' => 'fa fa-check',
+                'url' => ['masterdata/status-approval/index'],
+                'isDirect' => false,
             ],
         ]
     ]

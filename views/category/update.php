@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Category */
+/* @var $model core\models\Category */
 
 $this->title = 'Update ' . Yii::t('app', 'Business Category') . ' : ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Business Category'), 'url' => ['index']];

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\search\ProductSearch */
+/* @var $model core\models\search\StatusApprovalSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="product-search">
+<div class="status-approval-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,13 +17,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'product_category_id') ?>
-
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'note') ?>
 
-    <?= $form->field($model, 'is_active') ?>
+    <?= $form->field($model, 'instruction') ?>
+
+    <?= $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'order') ?>
+
+    <?php // echo $form->field($model, 'condition')->checkbox() ?>
+
+    <?php // echo $form->field($model, 'branch') ?>
+
+    <?php // echo $form->field($model, 'group') ?>
+
+    <?php // echo $form->field($model, 'not_active')->checkbox() ?>
+
+    <?php // echo $form->field($model, 'execute_action') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

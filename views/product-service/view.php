@@ -7,10 +7,10 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Product */
+/* @var $model core\models\ProductService */
 
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'Product',
+    'modelClass' => 'ProductService',
 ]);
 
 $ajaxRequest->view();
@@ -32,12 +32,13 @@ if ($status !== null) :
 endif;
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Membership'), 'url' => ['product-service/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Service'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component() ?>
 
-<div class="product-view">
+<div class="product-service-view">
 
     <div class="row">
         <div class="col-sm-12">
@@ -85,17 +86,12 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         ],
                         'attributes' => [
                             'id',
-                            [
-                                'attribute' => 'productCategory.parent.name',
-                                'format' => 'raw',
-                                'value' => $model->productCategory->parent->name . ' - ' . $model->productCategory->name,
-                            ],
                             'name',
                             'note:ntext',
                             [
-                                'attribute' => 'is_active',
+                                'attribute' => 'not_active',
                                 'format' => 'raw',
-                                'value' => Html::checkbox('is_active', $model->is_active, ['value' => $model->is_active, 'disabled' => 'disabled']),
+                                'value' => Html::checkbox('v', $model->not_active, ['value' => $model->not_active, 'disabled' => 'disabled']),
                             ],
                         ],
                     ]) ?>

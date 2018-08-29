@@ -1,20 +1,19 @@
 <?php
 
-namespace backend\controllers;
+namespace backoffice\modules\masterdata\controllers;
 
 use Yii;
-use backend\models\Product;
-use backend\models\search\ProductSearch;
-use sybase\SybaseController;
+use core\models\ProductService;
+use core\models\search\ProductServiceSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
 /**
- * ProductController implements the CRUD actions for Product model.
+ * ProductServiceController implements the CRUD actions for ProductService model.
  */
-class ProductController extends SybaseController
+class ProductServiceController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -34,16 +33,12 @@ class ProductController extends SybaseController
     }
 
     /**
-     * Lists all Product models.
+     * Lists all ProductService models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
-        $searchModel = new ProductSearch();
+        $searchModel = new ProductServiceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,36 +48,28 @@ class ProductController extends SybaseController
     }
 
     /**
-     * Displays a single Product model.
+     * Displays a single ProductService model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Product model.
+     * Creates a new ProductService model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate($save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $render = 'create';
 
-        $model = new Product();
+        $model = new ProductService();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -116,17 +103,13 @@ class ProductController extends SybaseController
     }
 
     /**
-     * Updates an existing Product model.
+     * Updates an existing ProductService model.
      * If update is successful, the browser will be redirected to the 'update' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id, $save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -157,7 +140,7 @@ class ProductController extends SybaseController
     }
 
     /**
-     * Deletes an existing Product model.
+     * Deletes an existing ProductService model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -191,22 +174,22 @@ class ProductController extends SybaseController
 
         $return = [];
 
-        $return['url'] = Yii::$app->urlManager->createUrl(['product/index']);
+        $return['url'] = Yii::$app->urlManager->createUrl([$this->module->id . '/product-service/index']);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;
     }
 
     /**
-     * Finds the Product model based on its primary key value.
+     * Finds the ProductService model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Product the loaded model
+     * @return ProductService the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Product::findOne($id)) !== null) {
+        if (($model = ProductService::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

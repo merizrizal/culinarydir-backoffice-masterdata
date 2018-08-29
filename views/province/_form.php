@@ -6,7 +6,7 @@ use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Province */
+/* @var $model core\models\Province */
 /* @var $form yii\widgets\ActiveForm */
 
 $ajaxRequest = new AjaxRequest([

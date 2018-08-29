@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace backoffice\modules\masterdata\controllers;
 
 use Yii;
-use backend\models\City;
-use backend\models\search\CitySearch;
-use sybase\SybaseController;
+use core\models\City;
+use core\models\search\CitySearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -14,7 +13,7 @@ use yii\widgets\ActiveForm;
 /**
  * CityController implements the CRUD actions for City model.
  */
-class CityController extends SybaseController
+class CityController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -39,10 +38,6 @@ class CityController extends SybaseController
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $searchModel = new CitySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,10 +55,6 @@ class CityController extends SybaseController
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,10 +67,6 @@ class CityController extends SybaseController
      */
     public function actionCreate($save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $render = 'create';
 
         $model = new City();
@@ -123,10 +110,6 @@ class CityController extends SybaseController
      */
     public function actionUpdate($id, $save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -191,7 +174,7 @@ class CityController extends SybaseController
 
         $return = [];
 
-        $return['url'] = Yii::$app->urlManager->createUrl(['city/index']);
+        $return['url'] = Yii::$app->urlManager->createUrl([$this->module->id . '/city/index']);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;

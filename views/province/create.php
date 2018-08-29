@@ -4,9 +4,10 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Province */
+/* @var $model core\models\Province */
 
 $this->title = 'Create ' . Yii::t('app', 'Province');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Area'), 'url' => ['province/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Province'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

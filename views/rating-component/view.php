@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\RatingComponent */
+/* @var $model core\models\RatingComponent */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'RatingComponent',

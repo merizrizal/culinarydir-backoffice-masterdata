@@ -3,19 +3,18 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model core\models\MembershipType */
+/* @var $model core\models\ProductService */
 
-$this->title = 'Update ' . Yii::t('app', 'Membership Type') . ' : ' . $model->name;
+$this->title = 'Update ' . Yii::t('app', 'Product Service') . ' : ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Membership'), 'url' => ['product-service/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Membership Type'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Service'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="membership-type-update">
+<div class="product-service-update">
 
     <?= $this->render('_form', [
         'model' => $model,
-        'modelMembershipTypeProductService' => $modelMembershipTypeProductService,
     ]) ?>
 
 </div>

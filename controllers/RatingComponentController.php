@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace backoffice\modules\masterdata\controllers;
 
 use Yii;
-use backend\models\RatingComponent;
-use backend\models\search\RatingComponentSearch;
-use sybase\SybaseController;
+use core\models\RatingComponent;
+use core\models\search\RatingComponentSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -14,7 +13,7 @@ use yii\widgets\ActiveForm;
 /**
  * RatingComponentController implements the CRUD actions for RatingComponent model.
  */
-class RatingComponentController extends SybaseController
+class RatingComponentController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -39,10 +38,6 @@ class RatingComponentController extends SybaseController
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $searchModel = new RatingComponentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -60,10 +55,6 @@ class RatingComponentController extends SybaseController
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,10 +67,6 @@ class RatingComponentController extends SybaseController
      */
     public function actionCreate($save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $render = 'create';
 
         $model = new RatingComponent();
@@ -129,10 +116,6 @@ class RatingComponentController extends SybaseController
      */
     public function actionUpdate($id, $save = null)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->layout = 'ajax';
-        }
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -197,7 +180,7 @@ class RatingComponentController extends SybaseController
 
         $return = [];
 
-        $return['url'] = Yii::$app->urlManager->createUrl(['rating-component/index']);
+        $return['url'] = Yii::$app->urlManager->createUrl([$this->module->id . '/rating-component/index']);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;

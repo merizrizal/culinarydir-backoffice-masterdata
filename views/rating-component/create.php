@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\RatingComponent */
+/* @var $model core\models\RatingComponent */
 
 $this->title = 'Create ' . Yii::t('app', 'Rating Component');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Rating Component'), 'url' => ['index']];

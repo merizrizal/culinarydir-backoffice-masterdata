@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Facility */
+/* @var $model core\models\Facility */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'Facility',

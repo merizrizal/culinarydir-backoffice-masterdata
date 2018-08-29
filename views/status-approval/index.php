@@ -7,11 +7,11 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\ProductSearch */
+/* @var $searchModel core\models\search\StatusApprovalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'Product',
+    'modelClass' => 'StatusApproval',
 ]);
 
 $ajaxRequest->index();
@@ -32,12 +32,12 @@ if ($status !== null) :
 
 endif;
 
-$this->title = Yii::t('app', 'Product');
+$this->title = Yii::t('app', 'Status Approval');
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>
 
-<div class="product-index">
+<div class="status-approval-index">
 
     <?php
     $modalDialog = new ModalDialog([
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
     ]); ?>
 
     <?= GridView::widget([
-        'id' => 'grid-view-product',
+        'id' => 'grid-view-status-approval',
         'dataProvider' => $dataProvider,
         'pjax' => false,
         'bordered' => false,
@@ -82,29 +82,25 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'productCategory.name',
+            'id',
             'name',
-            [
-                'attribute' => 'is_active',
-                'format' => 'raw',
-                'filter' =>  [true => 'True', false => 'False'],
-                'value' => function ($model, $index, $widget) {
-                    return Html::checkbox('is_active[]', $model->is_active, ['value' => $index, 'disabled' => 'disabled']);
-                },
-            ],
+            'condition',
+            'branch',
+            'group',
+            'order',
 
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '
                     <div class="btn-container hide">
                         <div class="visible-lg visible-md">
-                            <div class="btn-group btn-group-md" role="group" style="width: 120px">
-                                {view}{update}{delete}
+                            <div class="btn-group btn-group-md" role="group" style="width: 200px">
+                                {view}{update}{delete}{up}{down}
                             </div>
                         </div>
                         <div class="visible-sm visible-xs">
-                            <div class="btn-group btn-group-lg" role="group" style="width: 156px">
-                                {view}{update}{delete}
+                            <div class="btn-group btn-group-lg" role="group" style="width: 260px">
+                                {view}{update}{delete}{up}{down}
                             </div>
                         </div>
                     </div>',
@@ -139,6 +135,24 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'model-name' => $model->name,
                         ]);
                     },
+                    'up' =>  function($url, $model, $key) {
+                        return Html::a('<i class="fa fa-arrow-up"></i>', ['up', 'id' => $model->id], [
+                            'id' => 'view',
+                            'class' => 'btn btn-default',
+                            'data-toggle' => 'tooltip',
+                            'data-placement' => 'top',
+                            'title' => 'Up',
+                        ]);
+                    },
+                    'down' =>  function($url, $model, $key) {
+                        return Html::a('<i class="fa fa-arrow-down"></i>', ['down', 'id' => $model->id], [
+                            'id' => 'update',
+                            'class' => 'btn btn-default',
+                            'data-toggle' => 'tooltip',
+                            'data-placement' => 'top',
+                            'title' => 'Down',
+                        ]);
+                    },
                 ]
             ],
         ],
@@ -146,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             'class' => 'table table-striped table-hover'
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
-            return ['id' => $model['id'], 'class' => 'row-grid-view-product', 'style' => 'cursor: pointer;'];
+            return ['id' => $model['id'], 'class' => 'row-grid-view-status-approval', 'style' => 'cursor: pointer;'];
         },
         'pager' => [
             'firstPageLabel' => '<i class="fa fa-angle-double-left"></i>',
@@ -161,19 +175,13 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 <?= $modalDialog->renderDialog() ?>
 
 <?php
-$this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/skins/all.css', ['depends' => 'yii\web\YiiAsset']);
-
-$this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
-
 $jscript = ''
-    . Yii::$app->params['checkbox-radio-script']()
-    . '$(".iCheck-helper").parent().removeClass("disabled");'
     . $modalDialog->getScript() . '
 
     $("div.container.body").off("click");
     $("div.container.body").on("click", function(event) {
 
-        if ($(event.target).parent(".row-grid-view-product").length > 0) {
+        if ($(event.target).parent(".row-grid-view-status-approval").length > 0) {
 
             $("td").not(event.target).popover("destroy");
         } else {
@@ -181,10 +189,10 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-product").popover({
+    $(".row-grid-view-status-approval").popover({
         trigger: "click",
         placement: "top",
-        container: ".row-grid-view-product",
+        container: ".row-grid-view-status-approval",
         html: true,
         selector: "td",
         content: function () {
@@ -194,7 +202,7 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-product").on("shown.bs.popover", function(event) {
+    $(".row-grid-view-status-approval").on("shown.bs.popover", function(event) {
 
         $(\'[data-toggle="tooltip"]\').tooltip();
 

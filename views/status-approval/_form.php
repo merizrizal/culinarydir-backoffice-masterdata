@@ -1,23 +1,24 @@
 <?php
 
+use Yii;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
-use kartik\money\MaskMoney;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
 use backoffice\components\DynamicFormField;
-use core\models\ProductService;
+use core\models\StatusApproval;
+use core\models\StatusApprovalAction;
 
 /* @var $this yii\web\View */
-/* @var $model core\models\MembershipType */
+/* @var $model core\models\StatusApproval */
 /* @var $form yii\widgets\ActiveForm */
 
 kartik\select2\Select2Asset::register($this);
 kartik\select2\ThemeKrajeeAsset::register($this);
 
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'MembershipType',
+    'modelClass' => 'StatusApproval',
 ]);
 
 $ajaxRequest->form();
@@ -41,8 +42,8 @@ endif; ?>
 <?= $ajaxRequest->component() ?>
 
 <?php
-$form = ActiveForm::begin([
-    'id' => 'membership-type-form',
+ $form = ActiveForm::begin([
+    'id' => 'status-approval-form',
     'action' => $model->isNewRecord ? ['create'] : ['update', 'id' => $model->id],
     'options' => [
 
@@ -68,34 +69,67 @@ $form = ActiveForm::begin([
     ]
 ]);
 
-    $dynamicFormMembershipTypeProductService = new DynamicFormField([
-        'dataModel' => $modelMembershipTypeProductService,
+    $dynamicFormStatusApprovalRequire = new DynamicFormField([
+        'dataModel' => $modelStatusApprovalRequire,
         'form' => $form,
         'formFields' => [
-            'product_service_id' => [
+            'require_status_approval_id' => [
                 'type' => 'dropdown',
                 'data' => ArrayHelper::map(
-                    ProductService::find()->orderBy('name')->asArray()->all(),
+                    StatusApproval::find()->orderBy('order')->asArray()->all(),
+                    'id',
+                    function($data) {
+                        return $data['name'] . ' - ' . $data['id'];
+                    }
+                ),
+                'colOption' => 'style="width: 50%"',
+            ],
+        ],
+        'title' => Yii::t('app', 'Status Approval Require'),
+        'columnClass' => 'col-sm-12'
+    ]);
+
+    $dynamicFormStatusApprovalAction = new DynamicFormField([
+        'dataModel' => $modelStatusApprovalAction,
+        'form' => $form,
+        'formFields' => [
+            'name' => [
+                'type' => 'textinput',
+                'colOption' => 'style="width: 40%"',
+            ],
+            'url' => [
+                'type' => 'textinput',
+                'colOption' => 'style="width: 40%"',
+            ],
+        ],
+        'title' => Yii::t('app', 'Status Approval Action'),
+        'columnClass' => 'col-sm-12'
+    ]);
+
+    $dynamicFormStatusApprovalRequireAction = new DynamicFormField([
+        'dataModel' => $modelStatusApprovalRequireAction,
+        'form' => $form,
+        'formFields' => [
+            'status_approval_action_id' => [
+                'type' => 'dropdown',
+                'data' => ArrayHelper::map(
+                    StatusApprovalAction::find()->orderBy('name')->asArray()->all(),
                     'id',
                     function($data) {
                         return $data['name'];
                     }
                 ),
-                'colOption' => 'style="width: 25%"',
-            ],
-            'note' => [
-                'type' => 'textinput',
                 'colOption' => 'style="width: 50%"',
-            ]
+            ],
         ],
-        'title' => Yii::t('app', 'Product Service'),
+        'title' => Yii::t('app', 'Status Approval Require Action'),
         'columnClass' => 'col-sm-12'
     ]); ?>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="x_panel">
-                <div class="membership-type-form">
+                <div class="status-approval-form">
 
                     <div class="x_title">
 
@@ -113,37 +147,27 @@ $form = ActiveForm::begin([
 
                     <div class="x_content">
 
+                        <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
+
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-                        <?= $form->field($model, 'is_premium')->checkbox(['value' => true], false) ?>
-
-                        <?= $form->field($model, 'time_limit')->dropDownList(
-                                [
-                                    '0' => '0 ' . Yii::t('app', 'Month') . ' / ' . Yii::t('app', 'Unlimited'),
-                                    '1' => '1 ' . Yii::t('app', 'Month'),
-                                    '2' => '2 ' . Yii::t('app', 'Month'),
-                                    '3' => '3 ' . Yii::t('app', 'Month'),
-                                    '4' => '4 ' . Yii::t('app', 'Month'),
-                                    '5' => '5 ' . Yii::t('app', 'Month'),
-                                    '6' => '6 ' . Yii::t('app', 'Month'),
-                                    '7' => '7 ' . Yii::t('app', 'Month'),
-                                    '8' => '8 ' . Yii::t('app', 'Month'),
-                                    '9' => '9 ' . Yii::t('app', 'Month'),
-                                    '10' => '10 ' . Yii::t('app', 'Month'),
-                                    '11' => '11 ' . Yii::t('app', 'Month'),
-                                    '12' => '12 ' . Yii::t('app', 'Month'),
-                                ],
-                                [
-                                    'style' => 'width: 100%'
-                                ]) ?>
-
-                        <?= $form->field($model, 'price')->widget(MaskMoney::className()) ?>
 
                         <?= $form->field($model, 'note')->textarea(['rows' => 3]) ?>
 
-                        <?= $form->field($model, 'is_active')->checkbox(['value' => true], false) ?>
+                        <?= $form->field($model, 'instruction')->textarea(['rows' => 3]) ?>
 
-                        <?= $form->field($model, 'as_archive')->checkbox(['value' => true], false) ?>
+                        <?= $form->field($model, 'status')->dropDownList(['Finished-Success' => 'Finished-Success', 'Finished-Fail' => 'Finished-Fail', 'Unfinished' => 'Unfinished'], ['prompt' => '']) ?>
+
+                        <?= $form->field($model, 'order')->textInput() ?>
+
+                        <?= $form->field($model, 'condition')->radioList([true => 'True', null => 'False'], ['separator' => '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;']) ?>
+
+                        <?= $form->field($model, 'branch')->textInput() ?>
+
+                        <?= $form->field($model, 'group')->textInput() ?>
+
+                        <?= $form->field($model, 'not_active')->checkbox(['value' => true], false) ?>
+
+                        <?= $form->field($model, 'execute_action')->textarea(['rows' => 3]) ?>
 
                         <div class="form-group">
                             <div class="row">
@@ -157,12 +181,17 @@ $form = ActiveForm::begin([
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div><!-- /.row -->
 
-    <?= $dynamicFormMembershipTypeProductService->component(); ?>
+    <?= $dynamicFormStatusApprovalRequire->component(); ?>
+
+    <?= $dynamicFormStatusApprovalAction->component(); ?>
+
+    <?= $dynamicFormStatusApprovalRequireAction->component(); ?>
 
     <div class="row">
         <div class="col-sm-12">
@@ -184,8 +213,7 @@ $form = ActiveForm::begin([
         </div>
     </div>
 
-<?php
-ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 <?php
 
@@ -194,7 +222,7 @@ $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/
 $this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
 
 $jscript = '
-    $("#membershiptype-time_limit").select2({
+    $("#statusapproval-status").select2({
         theme: "krajee",
         placeholder: "Pilih",
         minimumResultsForSearch: "Infinity"

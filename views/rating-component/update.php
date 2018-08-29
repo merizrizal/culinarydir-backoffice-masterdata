@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\RatingComponent */
+/* @var $model core\models\RatingComponent */
 
 $this->title = 'Update ' . Yii::t('app', 'Rating Component') . ' : ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Rating Component'), 'url' => ['index']];

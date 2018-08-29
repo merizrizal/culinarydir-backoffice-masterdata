@@ -5,15 +5,27 @@ use yii\widgets\DetailView;
 use sycomponent\AjaxRequest;
 use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
+use backoffice\components\DynamicTable;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\MembershipType */
+/* @var $model core\models\MembershipType */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'MembershipType',
 ]);
 
 $ajaxRequest->view();
+
+$dynamicTableMembershipTypeProductService = new DynamicTable([
+    'model' => $modelMembershipTypeProductService,
+    'tableFields' => [
+        'productService.name',
+        'note',
+    ],
+    'dataProvider' => $dataProviderMembershipTypeProductService,
+    'title' => 'Product Service',
+    'columnClass' => 'col-sm-12'
+]);
 
 $status = Yii::$app->session->getFlash('status');
 $message1 = Yii::$app->session->getFlash('message1');
@@ -32,6 +44,7 @@ if ($status !== null) :
 endif;
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Membership'), 'url' => ['product-service/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Membership Type'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 
@@ -87,9 +100,9 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'id',
                             'name',
                             [
-                                'attribute' => 'is_free',
+                                'attribute' => 'is_premium',
                                 'format' => 'raw',
-                                'value' => Html::checkbox('is_free', $model->is_free, ['value' => $model->is_free, 'disabled' => 'disabled']),
+                                'value' => Html::checkbox('is_premium', $model->is_premium, ['value' => $model->is_premium, 'disabled' => 'disabled']),
                             ],
                             'time_limit',
                             'price:currency',
@@ -113,6 +126,8 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             </div>
         </div>
     </div>
+
+    <?= $dynamicTableMembershipTypeProductService->tableData() ?>
 
 </div>
 

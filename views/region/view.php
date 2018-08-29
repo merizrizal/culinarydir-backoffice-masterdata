@@ -7,7 +7,7 @@ use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Region */
+/* @var $model core\models\Region */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'Region',
@@ -32,6 +32,7 @@ if ($status !== null) :
 endif;
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Area'), 'url' => ['province/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Region'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
 

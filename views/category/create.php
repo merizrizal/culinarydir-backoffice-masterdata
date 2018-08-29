@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Category */
+/* @var $model core\models\Category */
 
 $this->title = 'Create ' . Yii::t('app', 'Business Category');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Business Category'), 'url' => ['index']];
