@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         </div>
                     </div>',
                 'buttons' => [
-                    'view' =>  function($url, $model, $key) {
+                    'view' => function($url, $model, $key) {
                         return Html::a('<i class="fa fa-search-plus"></i>', $url, [
                             'id' => 'view',
                             'class' => 'btn btn-primary',
@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'title' => 'View',
                         ]);
                     },
-                    'update' =>  function($url, $model, $key) {
+                    'update' => function($url, $model, $key) {
                         return Html::a('<i class="fa fa-pencil-alt"></i>', $url, [
                             'id' => 'update',
                             'class' => 'btn btn-success',
@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'title' => 'Edit',
                         ]);
                     },
-                    'delete' =>  function($url, $model, $key) {
+                    'delete' => function($url, $model, $key) {
                         return Html::a('<i class="fa fa-trash-alt"></i>', $url, [
                             'id' => 'delete',
                             'class' => 'btn btn-danger',
@@ -149,7 +149,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'model-name' => $model->name,
                         ]);
                     },
-                    'up' =>  function($url, $model, $key) {
+                    'up' => function($url, $model, $key) {
                         return Html::a('<i class="fa fa-arrow-up"></i>', ['up', 'id' => $model->id], [
                             'id' => 'view',
                             'class' => 'btn btn-default',
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'title' => 'Up',
                         ]);
                     },
-                    'down' =>  function($url, $model, $key) {
+                    'down' => function($url, $model, $key) {
                         return Html::a('<i class="fa fa-arrow-down"></i>', ['down', 'id' => $model->id], [
                             'id' => 'update',
                             'class' => 'btn btn-default',
