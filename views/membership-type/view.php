@@ -9,6 +9,8 @@ use backoffice\components\DynamicTable;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\MembershipType */
+/* @var $modelMembershipTypeProductService core\models\MembershipTypeProductService*/
+/* @var $dataProviderMembershipTypeProductService yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'MembershipType',

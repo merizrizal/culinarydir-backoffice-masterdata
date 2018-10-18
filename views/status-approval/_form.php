@@ -1,6 +1,5 @@
 <?php
 
-use Yii;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
@@ -13,6 +12,9 @@ use core\models\StatusApprovalAction;
 /* @var $this yii\web\View */
 /* @var $model core\models\StatusApproval */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $modelStatusApprovalRequire core\models\StatusApprovalRequire */
+/* @var $modelStatusApprovalAction core\models\StatusApprovalAction */
+/* @var $modelStatusApprovalRequireAction core\models\StatusApprovalRequireAction */
 
 kartik\select2\Select2Asset::register($this);
 kartik\select2\ThemeKrajeeAsset::register($this);

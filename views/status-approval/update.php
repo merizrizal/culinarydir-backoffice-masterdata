@@ -2,6 +2,9 @@
 
 /* @var $this yii\web\View */
 /* @var $model core\models\StatusApproval */
+/* @var $modelStatusApprovalRequire core\models\StatusApprovalRequire */
+/* @var $modelStatusApprovalAction core\models\StatusApprovalAction */
+/* @var $modelStatusApprovalRequireAction core\models\StatusApprovalRequireAction */
 
 $this->title = 'Update ' . Yii::t('app', 'Status Approval') . ' : ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Status Approval'), 'url' => ['index']];

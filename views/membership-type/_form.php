@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
-use kartik\money\MaskMoney;
+use kartik\number\NumberControl;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
 use backoffice\components\DynamicFormField;
@@ -11,6 +11,7 @@ use core\models\ProductService;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\MembershipType */
+/* @var $modelMembershipTypeProductService core\models\MembershipTypeProductService */
 /* @var $form yii\widgets\ActiveForm */
 
 kartik\select2\Select2Asset::register($this);
@@ -137,7 +138,9 @@ $form = ActiveForm::begin([
                                     'style' => 'width: 100%'
                                 ]) ?>
 
-                        <?= $form->field($model, 'price')->widget(MaskMoney::className()) ?>
+                        <?= $form->field($model, 'price')->widget(NumberControl::className(), [
+                            'maskedInputOptions' => Yii::$app->params['maskedInputOptions']
+                        ]) ?>
 
                         <?= $form->field($model, 'note')->textarea(['rows' => 3]) ?>
 

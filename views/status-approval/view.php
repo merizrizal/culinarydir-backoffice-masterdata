@@ -9,6 +9,12 @@ use backoffice\components\DynamicTable;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\StatusApproval */
+/* @var $modelStatusApprovalRequire core\models\StatusApprovalRequire */
+/* @var $modelStatusApprovalAction core\models\StatusApprovalAction */
+/* @var $modelStatusApprovalRequireAction core\models\StatusApprovalRequireAction */
+/* @var $dataProviderStatusApprovalRequire yii\data\ActiveDataProvider */
+/* @var $dataProviderStatusApprovalAction yii\data\ActiveDataProvider */
+/* @var $dataProviderStatusApprovalRequireAction yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'StatusApproval',
