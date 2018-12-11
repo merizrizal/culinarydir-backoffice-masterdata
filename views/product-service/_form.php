@@ -82,6 +82,8 @@ endif; ?>
                     <div class="x_content">
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                        
+                        <?= $form->field($model, 'product_service_code')->textInput(['maxlength' => true]) ?>
 
                         <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 

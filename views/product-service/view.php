@@ -87,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         'attributes' => [
                             'id',
                             'name',
+                            'product_service_code',
                             'note:ntext',
                             [
                                 'attribute' => 'not_active',
