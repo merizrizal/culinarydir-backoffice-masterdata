@@ -84,6 +84,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             ['class' => 'yii\grid\SerialColumn'],
 
             'name',
+            'code_name',
             'note:text',
             [
                 'attribute' => 'not_active',
