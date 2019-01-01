@@ -79,6 +79,12 @@ return [
                 'url' => ['masterdata/status-approval/index'],
                 'isDirect' => false,
             ],
+            'paymentMethod' => [
+                'label' => 'Payment Methods',
+                'iconClass' => 'fa fa-hand-holding-usd',
+                'url' => ['masterdata/payment-method/index'],
+                'isDirect' => false,
+            ],
         ]
     ]
 ];
