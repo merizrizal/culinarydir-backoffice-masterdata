@@ -1,21 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
-use core\models\PaymentMethod;
 
 /* @var $this yii\web\View */
-/* @var $model core\models\PaymentMethod */
+/* @var $model core\models\DeliveryMethod */
 /* @var $form yii\widgets\ActiveForm */
 
-kartik\select2\Select2Asset::register($this);
-kartik\select2\ThemeKrajeeAsset::register($this);
-
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'PaymentMethod'
+    'modelClass' => 'DeliveryMethod'
 ]);
 
 $ajaxRequest->form();
@@ -41,11 +36,11 @@ if ($status !== null) {
 <div class="row">
 	<div class="col-xs-12">
 		<div class="x_panel">
-			<div class="payment-method-form">
-			
-				<?php
+			<div class="delivery-method-form">
+
+                <?php
 				$form = ActiveForm::begin([
-				    'id' => 'payment-method-form',
+				    'id' => 'delivery-method-form',
 				    'action' => $model->isNewRecord ? ['create'] : ['update', 'id' => $model->id],
 				    'options' => [
 				        
@@ -72,56 +67,46 @@ if ($status !== null) {
 				]); ?>
 				
 					<div class="x_title">
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                
-                                    <?php
-                                    if (!$model->isNewRecord)
-                                        echo Html::a('<i class="fa fa-upload"></i> Create', ['create'], ['class' => 'btn btn-success']); ?>
-                                
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    
-                    <div class="x_content">
-
-                        <?= $form->field($model, 'payment_name')->textInput(['maxlength' => true]) ?>
-                    
-                        <?= $form->field($model, 'method')->dropDownList(
-                            ArrayHelper::map(
-                                PaymentMethod::find()->orderBy('payment_name')->asArray()->all(),
-                                'id',
-                                function ($data) {
-                                    
-                                    return $data['payment_name'];
-                                }
-                            ), ['prompt' => '']) ?>
-                    
+					
+						<div class="form-group">
+							<div class="row">
+								<div class="col-lg-6">
+								
+									<?php
+									if (!$model->isNewRecord)
+									    echo Html::a('<i class="fa fa-upload"></i> Create', ['create'], ['class' => 'btn btn-success']); ?>
+								
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="x_content">
+					
+						<?= $form->field($model, 'delivery_name')->textInput(['maxlength' => true]) ?>
+            
                         <?= $form->field($model, 'not_active')->checkbox(['value' => true], false) ?>
-                        
+                    
                         <div class="form-group">
                             <div class="row">
                             	<div class="col-xs-offset-3 col-xs-6">
                             	
-                            		<?php
-                            		$icon = '<i class="fa fa-save"></i> ';
-                            		echo Html::submitButton($model->isNewRecord ? $icon . 'Save' : $icon . 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-                            		echo Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']); ?>
+									<?php
+									$icon = '<i class="fa fa-save"></i> ';
+									echo Html::submitButton($model->isNewRecord ? $icon . 'Save' : $icon . 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+									echo Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']) ?>                            	
                             	
                             	</div>
-	                        </div>
+                            </div>
                         </div>
-                    
-                    </div>
-			
-				<?php
+					
+					</div>
+            
+                <?php
                 ActiveForm::end(); ?>
-			
-			</div>
+            
+            </div>
 		</div>
 	</div>
 </div>
@@ -131,12 +116,4 @@ $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/
 
 $this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
 
-$jscript = '
-    $("#paymentmethod-method").select2({
-        theme: "krajee",
-        placeholder: "' . Yii::t('app', 'Method') . '",
-        minimumResultsForSearch: Infinity
-    });
-';
-
-$this->registerJs(Yii::$app->params['checkbox-radio-script']() . $jscript); ?>
+$this->registerJs(Yii::$app->params['checkbox-radio-script']()); ?>

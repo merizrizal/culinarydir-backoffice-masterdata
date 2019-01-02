@@ -85,6 +85,12 @@ return [
                 'url' => ['masterdata/payment-method/index'],
                 'isDirect' => false,
             ],
+            'deliveryMethod' => [
+                'label' => 'Delivery Methods',
+                'iconClass' => 'fa fa-truck',
+                'url' => ['masterdata/delivery-method/index'],
+                'isDirect' => false,
+            ]
         ]
     ]
 ];

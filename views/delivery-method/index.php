@@ -1,19 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 use sycomponent\AjaxRequest;
 use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
-use core\models\PaymentMethod;
 
 /* @var $this yii\web\View */
-/* @var $searchModel core\models\search\PaymentMethodSearch */
+/* @var $searchModel core\models\search\DeliveryMethodSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'PaymentMethod'
+    'modelClass' => 'DeliveryMethod'
 ]);
 
 $ajaxRequest->index();
@@ -34,22 +32,22 @@ if ($status !== null) {
     echo $notif->renderDialog();
 }
 
-$this->title = Yii::t('app', 'Payment Methods');
+$this->title = Yii::t('app', 'Delivery Methods');
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>
 
-<div class="payment-method-index">
+<div class="delivery-method-index">
 
 	<?php
-    $modalDialog = new ModalDialog([
-        'clickedComponent' => 'a#delete',
-        'modelAttributeId' => 'model-id',
-        'modelAttributeName' => 'model-name',
-    ]); ?>
+	$modalDialog = new ModalDialog([
+	    'clickedComponent' => 'a#delete',
+	    'modelAttributeId' => 'model-id',
+	    'modelAttributeName' => 'model-name'
+	]); ?>
 
     <?= GridView::widget([
-        'id' => 'grid-view-payment-method',
+        'id' => 'grid-view-delivery-method',
         'dataProvider' => $dataProvider,
         'pjax' => false,
         'bordered' => false,
@@ -84,18 +82,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'payment_name',
-            [
-                'attribute' => 'method',
-                'format' => 'raw',
-                'filter' => ArrayHelper::map(
-                                PaymentMethod::find()->orderBy('id')->asArray()->all(),
-                                'method',
-                                function($data) {
-                                    return $data['method'];
-                                }
-                            ),
-            ],
+            'delivery_name',
             [
                 'attribute' => 'not_active',
                 'format' => 'raw',
@@ -149,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'data-not-ajax' => 1,
                             'title' => 'Delete',
                             'model-id' => $model->id,
-                            'model-name' => $model->payment_name,
+                            'model-name' => $model->delivery_name,
                         ]);
                     },
                 ]
@@ -160,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
             
-            return ['id' => $model['id'], 'class' => 'row-grid-view-payment-method', 'style' => 'cursor: pointer;'];
+            return ['id' => $model['id'], 'class' => 'row-grid-view-delivery-method', 'style' => 'cursor: pointer;'];
         },
         'pager' => [
             'firstPageLabel' => '<i class="fa fa-angle-double-left"></i>',
@@ -169,7 +156,6 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             'nextPageLabel' => '<i class="fa fa-angle-right"></i>',
         ],
     ]); ?>
-    
 </div>
 
 <?= $modalDialog->renderDialog() ?>
@@ -187,7 +173,7 @@ $jscript = ''
     $("div.container.body").off("click");
     $("div.container.body").on("click", function(event) {
 
-        if ($(event.target).parent(".row-grid-view-payment-method").length > 0) {
+        if ($(event.target).parent(".row-grid-view-delivery-method").length > 0) {
 
             $("td").not(event.target).popover("destroy");
         } else {
@@ -195,10 +181,10 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-payment-method").popover({
+    $(".row-grid-view-delivery-method").popover({
         trigger: "click",
         placement: "top",
-        container: ".row-grid-view-payment-method",
+        container: ".row-grid-view-delivery-method",
         html: true,
         selector: "td",
         content: function () {
@@ -208,7 +194,7 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-payment-method").on("shown.bs.popover", function(event) {
+    $(".row-grid-view-delivery-method").on("shown.bs.popover", function(event) {
         
         $(\'[data-toggle="tooltip"]\').tooltip();
 
