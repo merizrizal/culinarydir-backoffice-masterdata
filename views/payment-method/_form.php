@@ -92,14 +92,9 @@ if ($status !== null) {
                         <?= $form->field($model, 'payment_name')->textInput(['maxlength' => true]) ?>
                     
                         <?= $form->field($model, 'method')->dropDownList(
-                            ArrayHelper::map(
-                                PaymentMethod::find()->orderBy('payment_name')->asArray()->all(),
-                                'id',
-                                function ($data) {
-                                    
-                                    return $data['payment_name'];
-                                }
-                            ), ['prompt' => '']) ?>
+                            [ 'Cash' => 'Cash', 'Credit Card' => 'Credit Card', 'Debit Card' => 'Debit Card', 'Transfer' => 'Transfer', 'E-Wallet' => 'E-Wallet' ],
+                            ['prompt' => '']
+                        ) ?>
                     
                         <?= $form->field($model, 'not_active')->checkbox(['value' => true], false) ?>
                         
