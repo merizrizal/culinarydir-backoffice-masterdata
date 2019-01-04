@@ -1,12 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 use sycomponent\AjaxRequest;
 use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
-use core\models\PaymentMethod;
 
 /* @var $this yii\web\View */
 /* @var $searchModel core\models\search\PaymentMethodSearch */

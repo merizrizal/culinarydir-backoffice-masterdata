@@ -1,11 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
-use core\models\PaymentMethod;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\PaymentMethod */
