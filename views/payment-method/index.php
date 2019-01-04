@@ -88,13 +88,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             [
                 'attribute' => 'method',
                 'format' => 'raw',
-                'filter' => ArrayHelper::map(
-                                PaymentMethod::find()->orderBy('id')->asArray()->all(),
-                                'method',
-                                function($data) {
-                                    return $data['method'];
-                                }
-                            ),
+                'filter' => [ 'Cash' => 'Cash', 'Credit Card' => 'Credit Card', 'Debit Card' => 'Debit Card', 'Transfer' => 'Transfer', 'E-Wallet' => 'E-Wallet' ],
             ],
             [
                 'attribute' => 'not_active',
