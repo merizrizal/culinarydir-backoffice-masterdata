@@ -19,7 +19,8 @@ $status = Yii::$app->session->getFlash('status');
 $message1 = Yii::$app->session->getFlash('message1');
 $message2 = Yii::$app->session->getFlash('message2');
 
-if ($status !== null) :
+if ($status !== null) {
+    
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
@@ -28,8 +29,7 @@ if ($status !== null) :
 
     $notif->theScript();
     echo $notif->renderDialog();
-
-endif;
+}
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Area'), 'url' => ['province/index']];
@@ -85,13 +85,9 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'class' => 'table'
                         ],
                         'attributes' => [
-                                        'id',
-            'district_id',
-            'name',
-            'created_at',
-            'user_created',
-            'updated_at',
-            'user_updated',
+                            'id',
+                            'district.name',
+                            'name'
                         ],
                     ]) ?>
 
@@ -104,7 +100,6 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 </div>
 
 <?php
-
 $modalDialog = new ModalDialog([
     'clickedComponent' => 'a#delete',
     'modelAttributeId' => 'model-id',
@@ -113,6 +108,4 @@ $modalDialog = new ModalDialog([
 
 $modalDialog->theScript(false);
 
-echo $modalDialog->renderDialog();
-
-?>
+echo $modalDialog->renderDialog(); ?>
