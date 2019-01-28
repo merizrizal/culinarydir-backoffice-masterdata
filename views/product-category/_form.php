@@ -85,7 +85,14 @@ endif; ?>
 
                     <div class="x_content">
 
-                        <?= $form->field($model, 'is_parent')->checkbox(['value' => true], false) ?>
+                        <?= $form->field($model, 'type')->dropDownList([
+                            'General' => 'General',
+                            'Specific' => 'Specific',
+                            'Menu' => 'Menu',
+                            'Specific-Menu' => 'Specific Menu',
+                        ], [
+                            'prompt' => ''
+                        ]) ?>
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -118,4 +125,12 @@ $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/
 
 $this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
 
-$this->registerJs(Yii::$app->params['checkbox-radio-script']()); ?>
+$jscript = '
+    $("#productcategory-type").select2({
+        theme: "krajee",
+        placeholder: "' . Yii::t('app', 'Type') . '",
+        minimumResultsForSearch: Infinity
+    });
+';
+
+$this->registerJs(Yii::$app->params['checkbox-radio-script']() . $jscript); ?>

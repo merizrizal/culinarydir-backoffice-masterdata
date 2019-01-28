@@ -86,12 +86,8 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         ],
                         'attributes' => [
                             'id',
-                            [
-                                'attribute' => 'is_parent',
-                                'format' => 'raw',
-                                'value' => Html::checkbox('is_parent', $model->is_parent, ['value' => $model->is_parent, 'disabled' => 'disabled']),
-                            ],
                             'name',
+                            'type',
                             [
                                 'attribute' => 'is_active',
                                 'format' => 'raw',

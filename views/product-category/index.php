@@ -82,16 +82,13 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            [
-                'attribute' => 'is_parent',
-                'format' => 'raw',
-                'filter' =>  [true => 'True', false => 'False'],
-                'value' => function ($model, $index, $widget) {
-                    return Html::checkbox('is_parent[]', $model->is_parent, ['value' => $index, 'disabled' => 'disabled']);
-                },
-            ],
+            
             'name',
+            [
+                'attribute' => 'type',
+                'format' => 'raw',
+                'filter' => [ 'General' => 'General', 'Specific' => 'Specific', 'Menu' => 'Menu', 'Specific-Menu' => 'Specific Menu'],
+            ],
             [
                 'attribute' => 'is_active',
                 'format' => 'raw',
