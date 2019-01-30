@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use core\models\BusinessProductCategory;
+use core\models\RegistryBusinessProductCategory;
 
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
@@ -112,24 +114,60 @@ class ProductCategoryController extends \backoffice\controllers\BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(($post = Yii::$app->request->post()))) {
 
             if (empty($save)) {
 
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             } else {
+                
+                $transaction = Yii::$app->db->beginTransaction();
+                $flag = $model->save();
+                
+                if ($flag && !$post['ProductCategory']['is_active']) {
+                    
+                    $modelRegistryBusinessProductCategory = RegistryBusinessProductCategory::findAll(['product_category_id' => $id]);
+                    $modelBusinessProductCategory = BusinessProductCategory::findAll(['product_category_id' => $id]);
+                    
+                    foreach ($modelRegistryBusinessProductCategory as $dataRegistryBusinessProductCategory) {
+                        
+                        $dataRegistryBusinessProductCategory->is_active = false;
+                        
+                        if (!($flag = $dataRegistryBusinessProductCategory->save())) {
+                            
+                            break;
+                        }
+                    }
+                    
+                    if ($flag) {
+                        
+                        foreach ($modelBusinessProductCategory as $dataBusinessProductCategory) {
+                            
+                            $dataBusinessProductCategory->is_active = false;
+                            
+                            if (!($flag = $dataBusinessProductCategory->save())) {
+                                
+                                break;
+                            }
+                        }
+                    }
+                }
 
-                if ($model->save()) {
-
+                if ($flag) {
+                    
                     Yii::$app->session->setFlash('status', 'success');
                     Yii::$app->session->setFlash('message1', Yii::t('app', 'Update Data Is Success'));
                     Yii::$app->session->setFlash('message2', Yii::t('app', 'Update data process is success. Data has been saved'));
+                    
+                    $transaction->commit();
                 } else {
-
+                    
                     Yii::$app->session->setFlash('status', 'danger');
                     Yii::$app->session->setFlash('message1', Yii::t('app', 'Update Data Is Fail'));
                     Yii::$app->session->setFlash('message2', Yii::t('app', 'Update data process is fail. Data fail to save'));
+                    
+                    $transaction->rollBack();
                 }
             }
         }
