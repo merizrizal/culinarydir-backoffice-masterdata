@@ -19,7 +19,8 @@ $status = Yii::$app->session->getFlash('status');
 $message1 = Yii::$app->session->getFlash('message1');
 $message2 = Yii::$app->session->getFlash('message2');
 
-if ($status !== null) :
+if ($status !== null) {
+    
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
@@ -28,8 +29,7 @@ if ($status !== null) :
 
     $notif->theScript();
     echo $notif->renderDialog();
-
-endif;
+}
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category & Product'), 'url' => ['product-category/index']];
@@ -105,7 +105,6 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 </div>
 
 <?php
-
 $modalDialog = new ModalDialog([
     'clickedComponent' => 'a#delete',
     'modelAttributeId' => 'model-id',
@@ -124,6 +123,4 @@ $jscript = Yii::$app->params['checkbox-radio-script']()
     . '$(".iCheck-helper").parent().removeClass("disabled");
 ';
 
-$this->registerJs($jscript);
-
-?>
+$this->registerJs($jscript); ?>

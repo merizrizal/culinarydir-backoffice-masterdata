@@ -22,7 +22,8 @@ $status = Yii::$app->session->getFlash('status');
 $message1 = Yii::$app->session->getFlash('message1');
 $message2 = Yii::$app->session->getFlash('message2');
 
-if ($status !== null) :
+if ($status !== null) {
+ 
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
@@ -31,10 +32,9 @@ if ($status !== null) :
 
     $notif->theScript();
     echo $notif->renderDialog();
+}
 
-endif; ?>
-
-<?= $ajaxRequest->component() ?>
+echo $ajaxRequest->component(); ?>
 
 <div class="row">
     <div class="col-sm-12">
@@ -70,7 +70,6 @@ endif; ?>
                 ]); ?>
 
                     <div class="x_title">
-
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -80,7 +79,6 @@ endif; ?>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="x_content">
@@ -120,7 +118,6 @@ endif; ?>
 </div><!-- /.row -->
 
 <?php
-
 $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/skins/all.css', ['depends' => 'yii\web\YiiAsset']);
 
 $this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);

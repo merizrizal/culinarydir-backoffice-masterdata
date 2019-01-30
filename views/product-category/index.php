@@ -82,12 +82,11 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            
             'name',
             [
                 'attribute' => 'type',
                 'format' => 'raw',
-                'filter' => [ 'General' => 'General', 'Specific' => 'Specific', 'Menu' => 'Menu', 'Specific-Menu' => 'Specific Menu'],
+                'filter' => ['General' => 'General', 'Specific' => 'Specific', 'Menu' => 'Menu', 'Specific-Menu' => 'Specific Menu'],
             ],
             [
                 'attribute' => 'is_active',
