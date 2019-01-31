@@ -123,9 +123,8 @@ class ProductCategoryController extends \backoffice\controllers\BaseController
             } else {
                 
                 $transaction = Yii::$app->db->beginTransaction();
-                $flag = $model->save();
                 
-                if ($flag && !$post['ProductCategory']['is_active']) {
+                if (($flag = $model->save()) && !$post['ProductCategory']['is_active']) {
                     
                     $modelRegistryBusinessProductCategory = RegistryBusinessProductCategory::findAll(['product_category_id' => $id]);
                     $modelBusinessProductCategory = BusinessProductCategory::findAll(['product_category_id' => $id]);
