@@ -86,6 +86,10 @@ if ($status !== null) {
 					
 						<?= $form->field($model, 'delivery_name')->textInput(['maxlength' => true]) ?>
             
+                        <?= $form->field($model, 'note')->textarea(['rows' => 2]) ?>
+                        
+                        <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+                        
                         <?= $form->field($model, 'not_active')->checkbox(['value' => true], false) ?>
                     
                         <div class="form-group">

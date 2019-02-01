@@ -93,6 +93,10 @@ if ($status !== null) {
                             [ 'Cash' => 'Cash', 'Credit Card' => 'Credit Card', 'Debit Card' => 'Debit Card', 'Transfer' => 'Transfer', 'E-Wallet' => 'E-Wallet' ],
                             ['prompt' => '']
                         ) ?>
+                        
+                        <?= $form->field($model, 'note')->textarea(['rows' => 2]) ?>
+                        
+                        <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
                     
                         <?= $form->field($model, 'not_active')->checkbox(['value' => true], false) ?>
                         

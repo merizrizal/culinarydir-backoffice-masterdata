@@ -87,6 +87,8 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'id',
                             'payment_name',
                             'method',
+                            'note:ntext',
+                            'description:ntext',
                             [
                                 'attribute' => 'not_active',
                                 'format' => 'raw',

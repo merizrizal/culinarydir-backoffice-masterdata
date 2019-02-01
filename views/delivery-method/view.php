@@ -86,6 +86,8 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         'attributes' => [
                             'id',
                             'delivery_name',
+                            'note:ntext',
+                            'description:ntext',
                             [
                                 'attribute' => 'not_active',
                                 'format' => 'raw',
