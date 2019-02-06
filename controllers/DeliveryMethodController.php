@@ -196,4 +196,17 @@ class DeliveryMethodController extends \backoffice\controllers\BaseController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
+    public function actionGetNotesByDeliveryMethod($id)
+    {
+        $data = DeliveryMethod::find()->andWhere(['id' => $id])->asArray()->all();
+        
+        $row = [];
+        
+        $row['note'] = !empty($data[0]['note']) ? $data[0]['note'] : null;
+        $row['description'] = !empty($data[0]['description']) ? $data[0]['description'] : null;
+        
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $row;
+    }
 }
