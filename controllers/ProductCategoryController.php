@@ -9,8 +9,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-use core\models\BusinessProductCategory;
-use core\models\RegistryBusinessProductCategory;
 
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
@@ -114,7 +112,7 @@ class ProductCategoryController extends \backoffice\controllers\BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(($post = Yii::$app->request->post()))) {
+        if ($model->load((Yii::$app->request->post()))) {
 
             if (empty($save)) {
 
@@ -124,12 +122,9 @@ class ProductCategoryController extends \backoffice\controllers\BaseController
                 
                 $transaction = Yii::$app->db->beginTransaction();
                 
-                if (($flag = $model->save()) && !$post['ProductCategory']['is_active']) {
+                if (($flag = $model->save()) && !$model->is_active) {
                     
-                    $modelRegistryBusinessProductCategory = RegistryBusinessProductCategory::findAll(['product_category_id' => $id]);
-                    $modelBusinessProductCategory = BusinessProductCategory::findAll(['product_category_id' => $id]);
-                    
-                    foreach ($modelRegistryBusinessProductCategory as $dataRegistryBusinessProductCategory) {
+                    foreach ($model->registryBusinessProductCategories as $dataRegistryBusinessProductCategory) {
                         
                         $dataRegistryBusinessProductCategory->is_active = false;
                         
@@ -141,9 +136,10 @@ class ProductCategoryController extends \backoffice\controllers\BaseController
                     
                     if ($flag) {
                         
-                        foreach ($modelBusinessProductCategory as $dataBusinessProductCategory) {
+                        foreach ($model->businessProductCategories as $dataBusinessProductCategory) {
                             
                             $dataBusinessProductCategory->is_active = false;
+                            $dataBusinessProductCategory->order = null;
                             
                             if (!($flag = $dataBusinessProductCategory->save())) {
                                 
