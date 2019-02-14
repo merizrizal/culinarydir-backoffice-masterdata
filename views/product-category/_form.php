@@ -87,7 +87,7 @@ echo $ajaxRequest->component(); ?>
                             'General' => 'General',
                             'Specific' => 'Specific',
                             'Menu' => 'Menu',
-                            'Specific-Menu' => 'Specific Menu',
+                            'Specific-Menu' => 'Menu + Hashtag',
                         ], [
                             'prompt' => ''
                         ]) ?>

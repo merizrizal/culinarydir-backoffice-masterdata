@@ -86,7 +86,10 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             [
                 'attribute' => 'type',
                 'format' => 'raw',
-                'filter' => ['General' => 'General', 'Specific' => 'Specific', 'Menu' => 'Menu', 'Specific-Menu' => 'Specific Menu'],
+                'filter' => ['General' => 'General', 'Specific' => 'Specific', 'Menu' => 'Menu', 'Specific-Menu' => 'Menu + Hashtag'],
+                'value' => function ($model, $index, $widget) {
+                    return Yii::t('app', $model->type);
+                }
             ],
             [
                 'attribute' => 'is_active',

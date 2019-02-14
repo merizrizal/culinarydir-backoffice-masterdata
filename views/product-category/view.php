@@ -87,7 +87,11 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                         'attributes' => [
                             'id',
                             'name',
-                            'type',
+                            [
+                                'attribute' => 'type',
+                                'format' => 'raw',
+                                'value' => Yii::t('app', $model->type),
+                            ],
                             [
                                 'attribute' => 'is_active',
                                 'format' => 'raw',
