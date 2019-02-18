@@ -87,7 +87,7 @@ echo $ajaxRequest->component(); ?>
                             'General' => 'General',
                             'Specific' => 'Specific',
                             'Menu' => 'Menu',
-                            'Specific-Menu' => 'Menu + Hashtag',
+                            'Specific-Menu' => Yii::t('app', 'Specific-Menu'),
                         ], [
                             'prompt' => ''
                         ]) ?>
