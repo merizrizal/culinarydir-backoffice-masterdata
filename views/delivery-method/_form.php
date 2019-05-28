@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use sycomponent\AjaxRequest;
 use sycomponent\NotificationDialog;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\DeliveryMethod */
@@ -20,13 +20,13 @@ $message1 = Yii::$app->session->getFlash('message1');
 $message2 = Yii::$app->session->getFlash('message2');
 
 if ($status !== null) {
-    
+
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
         'message2' => $message2,
     ]);
-    
+
     $notif->theScript();
     echo $notif->renderDialog();
 } ?>
@@ -43,7 +43,7 @@ if ($status !== null) {
 				    'id' => 'delivery-method-form',
 				    'action' => $model->isNewRecord ? ['create'] : ['update', 'id' => $model->id],
 				    'options' => [
-				        
+
 				    ],
 				    'fieldConfig' => [
 				        'parts' => [
@@ -65,51 +65,53 @@ if ($status !== null) {
                             </div>',
 				    ]
 				]); ?>
-				
+
 					<div class="x_title">
-					
+
 						<div class="form-group">
 							<div class="row">
 								<div class="col-lg-6">
-								
+
 									<?php
 									if (!$model->isNewRecord)
 									    echo Html::a('<i class="fa fa-upload"></i> Create', ['create'], ['class' => 'btn btn-success']); ?>
-								
+
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
-					
+
 					<div class="x_content">
-					
+
 						<?= $form->field($model, 'delivery_name')->textInput(['maxlength' => true]) ?>
-            
+
                         <?= $form->field($model, 'note')->textarea(['rows' => 2]) ?>
-                        
+
                         <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-                        
+
                         <?= $form->field($model, 'not_active')->checkbox(['value' => true], false) ?>
-                    
+
+                        <?= $form->field($model, 'is_special')->checkbox(['value' => true], false) ?>
+
                         <div class="form-group">
                             <div class="row">
                             	<div class="col-xs-offset-3 col-xs-6">
-                            	
+
 									<?php
 									$icon = '<i class="fa fa-save"></i> ';
 									echo Html::submitButton($model->isNewRecord ? $icon . 'Save' : $icon . 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
-									echo Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']) ?>                            	
-                            	
+									echo Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']) ?>
+
                             	</div>
                             </div>
                         </div>
-					
+
 					</div>
-            
+
                 <?php
                 ActiveForm::end(); ?>
-            
+
             </div>
 		</div>
 	</div>
