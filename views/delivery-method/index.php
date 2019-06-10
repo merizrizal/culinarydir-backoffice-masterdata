@@ -21,13 +21,13 @@ $message1 = Yii::$app->session->getFlash('message1');
 $message2 = Yii::$app->session->getFlash('message2');
 
 if ($status !== null) {
-    
+
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
         'message2' => $message2,
     ]);
-    
+
     $notif->theScript();
     echo $notif->renderDialog();
 }
@@ -84,11 +84,18 @@ $this->params['breadcrumbs'][] = $this->title; ?>
 
             'delivery_name',
             [
+                'format' => 'raw',
+                'value' => function ($model, $index, $widget) {
+
+                    return Html::a('Add to All Business', ['delivery-method/add-to-all-business', 'id' => $model->id, 'note' => $model->note, 'description' => $model->description], ['class' => 'btn btn-xs btn-success add-order-online']);
+                },
+            ],
+            [
                 'attribute' => 'not_active',
                 'format' => 'raw',
                 'filter' => [true => 'True', false => 'False'],
                 'value' => function ($model, $index, $widget) {
-                    
+
                     return Html::checkbox('not_active[]', $model->not_active, ['value' => $index, 'disabled' => 'disabled']);
                 }
             ],
@@ -146,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             'class' => 'table table-striped table-hover'
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
-            
+
             return ['id' => $model['id'], 'class' => 'row-grid-view-delivery-method', 'style' => 'cursor: pointer;'];
         },
         'pager' => [
@@ -195,7 +202,7 @@ $jscript = ''
     });
 
     $(".row-grid-view-delivery-method").on("shown.bs.popover", function(event) {
-        
+
         $(\'[data-toggle="tooltip"]\').tooltip();
 
         var popoverId = $(event.target).attr("aria-describedby");
@@ -209,6 +216,6 @@ $jscript = ''
             return false;
         });
     });
-'; 
+';
 
 $this->registerJs($jscript); ?>
