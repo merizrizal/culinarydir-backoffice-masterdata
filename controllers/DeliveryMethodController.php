@@ -236,17 +236,16 @@ class DeliveryMethodController extends \backoffice\controllers\BaseController
                 if (!empty($dataBusiness->businessDeliveries)) {
 
                     $modelBusinessDelivery = $dataBusiness->businessDeliveries[0];
-                    $modelBusinessDelivery->note = $note;
-                    $modelBusinessDelivery->description = $description;
                 } else {
 
                     $modelBusinessDelivery = new BusinessDelivery();
                     $modelBusinessDelivery->business_id = $dataBusiness->id;
                     $modelBusinessDelivery->is_active = true;
                     $modelBusinessDelivery->delivery_method_id = $id;
-                    $modelBusinessDelivery->note = $note;
-                    $modelBusinessDelivery->description = $description;
                 }
+
+                $modelBusinessDelivery->note = !empty($note) ? $note : null;
+                $modelBusinessDelivery->description = !empty($description) ? $description : null;
 
                 if (!($flag = $modelBusinessDelivery->save())) {
 
