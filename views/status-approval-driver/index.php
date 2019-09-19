@@ -7,20 +7,20 @@ use sycomponent\NotificationDialog;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $searchModel core\models\search\StatusApprovalSearch */
+/* @var $searchModel core\models\search\StatusApprovalDriverSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
-    'modelClass' => 'StatusApproval',
+    'modelClass' => 'StatusApprovalDriver',
 ]);
 
 $ajaxRequest->index();
 
-$status = Yii::$app->session->getFlash('status');
-$message1 = Yii::$app->session->getFlash('message1');
-$message2 = Yii::$app->session->getFlash('message2');
+$status = \Yii::$app->session->getFlash('status');
+$message1 = \Yii::$app->session->getFlash('message1');
+$message2 = \Yii::$app->session->getFlash('message2');
 
-if ($status !== null) :
+if ($status !== null) {
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
@@ -30,14 +30,14 @@ if ($status !== null) :
     $notif->theScript();
     echo $notif->renderDialog();
 
-endif;
+}
 
-$this->title = Yii::t('app', 'Status Approval') . " : " . \Yii::t('app', 'Business');
+$this->title = \Yii::t('app', 'Status Approval') . " : " . \Yii::t('app', 'Driver');
 $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $ajaxRequest->component(true) ?>
 
-<div class="status-approval-index">
+<div class="status-approval-driver-index">
 
     <?php
     $modalDialog = new ModalDialog([
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
     ]); ?>
 
     <?= GridView::widget([
-        'id' => 'grid-view-status-approval',
+        'id' => 'grid-view-status-approval-driver',
         'dataProvider' => $dataProvider,
         'pjax' => false,
         'bordered' => false,
@@ -94,13 +94,13 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                 'template' => '
                     <div class="btn-container hide">
                         <div class="visible-lg visible-md">
-                            <div class="btn-group btn-group-md" role="group" style="width: 200px">
-                                {view}{update}{delete}{up}{down}
+                            <div class="btn-group btn-group-md" role="group" style="width: 120px">
+                                {view}{update}{delete}
                             </div>
                         </div>
                         <div class="visible-sm visible-xs">
-                            <div class="btn-group btn-group-lg" role="group" style="width: 260px">
-                                {view}{update}{delete}{up}{down}
+                            <div class="btn-group btn-group-lg" role="group" style="width: 156px">
+                                {view}{update}{delete}
                             </div>
                         </div>
                     </div>',
@@ -135,24 +135,6 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'model-name' => $model->name,
                         ]);
                     },
-                    'up' => function($url, $model, $key) {
-                        return Html::a('<i class="fa fa-arrow-up"></i>', ['up', 'id' => $model->id], [
-                            'id' => 'view',
-                            'class' => 'btn btn-default',
-                            'data-toggle' => 'tooltip',
-                            'data-placement' => 'top',
-                            'title' => 'Up',
-                        ]);
-                    },
-                    'down' => function($url, $model, $key) {
-                        return Html::a('<i class="fa fa-arrow-down"></i>', ['down', 'id' => $model->id], [
-                            'id' => 'update',
-                            'class' => 'btn btn-default',
-                            'data-toggle' => 'tooltip',
-                            'data-placement' => 'top',
-                            'title' => 'Down',
-                        ]);
-                    },
                 ]
             ],
         ],
@@ -160,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
             'class' => 'table table-striped table-hover'
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
-            return ['id' => $model['id'], 'class' => 'row-grid-view-status-approval', 'style' => 'cursor: pointer;'];
+            return ['id' => $model['id'], 'class' => 'row-grid-view-status-approval-driver', 'style' => 'cursor: pointer;'];
         },
         'pager' => [
             'firstPageLabel' => '<i class="fa fa-angle-double-left"></i>',
@@ -181,7 +163,7 @@ $jscript = ''
     $("div.container.body").off("click");
     $("div.container.body").on("click", function(event) {
 
-        if ($(event.target).parent(".row-grid-view-status-approval").length > 0) {
+        if ($(event.target).parent(".row-grid-view-status-approval-driver").length > 0) {
 
             $("td").not(event.target).popover("destroy");
         } else {
@@ -189,10 +171,10 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-status-approval").popover({
+    $(".row-grid-view-status-approval-driver").popover({
         trigger: "click",
         placement: "top",
-        container: ".row-grid-view-status-approval",
+        container: ".row-grid-view-status-approval-driver",
         html: true,
         selector: "td",
         content: function () {
@@ -202,7 +184,7 @@ $jscript = ''
         }
     });
 
-    $(".row-grid-view-status-approval").on("shown.bs.popover", function(event) {
+    $(".row-grid-view-status-approval-driver").on("shown.bs.popover", function(event) {
 
         $(\'[data-toggle="tooltip"]\').tooltip();
 

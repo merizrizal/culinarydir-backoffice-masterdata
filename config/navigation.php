@@ -76,8 +76,18 @@ return [
             'statusApproval' => [
                 'label' => 'Approval Status',
                 'iconClass' => 'fa fa-check',
-                'url' => ['masterdata/status-approval/index'],
-                'isDirect' => false,
+                'navigation' => [
+                    'business' => [
+                        'label' => 'Business',
+                        'url' => ['masterdata/status-approval/index'],
+                        'isDirect' => false,
+                    ],
+                    'driver' => [
+                        'label' => 'Driver',
+                        'url' => ['masterdata/status-approval-driver/index'],
+                        'isDirect' => false,
+                    ]
+                ]
             ],
             'paymentMethod' => [
                 'label' => 'Payment Methods',
