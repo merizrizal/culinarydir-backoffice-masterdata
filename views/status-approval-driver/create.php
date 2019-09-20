@@ -6,7 +6,7 @@
 /* @var $modelStatusApprovalDriverAction core\models\StatusApprovalDriverAction */
 /* @var $modelStatusApprovalDriverRequireAction core\models\StatusApprovalDriverRequireAction */
 
-$this->title = 'Create ' . \Yii::t('app', 'Status Approval Driver');
+$this->title = \Yii::t('app', 'Add') . ' ' . \Yii::t('app', 'Status Approval Driver');
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Status Approval Driver'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

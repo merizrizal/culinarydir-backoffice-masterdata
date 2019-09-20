@@ -41,8 +41,9 @@ if ($status !== null) {
     echo $notif->renderDialog();
 } ?>
 
-<?php echo $ajaxRequest->component();
+<?= $ajaxRequest->component() ?>
 
+<?php
 $form = ActiveForm::begin([
     'id' => 'status-approval-driver-form',
     'action' => $model->isNewRecord ? ['create'] : ['update', 'id' => $model->id],
@@ -200,8 +201,8 @@ $dynamicFormStatusApprovalDriverRequireAction = new DynamicFormField([
     </div>
 </div>
 
-<?php 
-ActiveForm::end(); 
+<?php
+ActiveForm::end();
 
 $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/skins/all.css', ['depends' => 'yii\web\YiiAsset']);
 

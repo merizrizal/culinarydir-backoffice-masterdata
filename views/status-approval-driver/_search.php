@@ -19,31 +19,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'note') ?>
+	<?= $form->field($model, 'condition')->checkbox() ?>
 
-    <?= $form->field($model, 'instruction') ?>
+    <?= $form->field($model, 'branch') ?>
 
-    <?= $form->field($model, 'status') ?>
+    <?= $form->field($model, 'group') ?>
 
-    <?php // echo $form->field($model, 'order') ?>
+    <?= $form->field($model, 'order') ?>
 
-    <?php // echo $form->field($model, 'condition')->checkbox() ?>
 
-    <?php // echo $form->field($model, 'branch') ?>
 
-    <?php // echo $form->field($model, 'group') ?>
-
-    <?php // echo $form->field($model, 'not_active')->checkbox() ?>
-
-    <?php // echo $form->field($model, 'execute_action') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'user_created') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <?php // echo $form->field($model, 'user_updated') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

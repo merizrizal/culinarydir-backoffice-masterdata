@@ -126,7 +126,7 @@ class StatusApprovalDriverController extends BaseController
 
                             if ($i !== 'index') {
 
-                                if (empty($statusApprovalDriverRequire)) {
+                                if (empty($statusApprovalDriverRequire['id'])) {
 
                                     $newModelStatusApprovalDriverRequire = new StatusApprovalDriverRequire();
                                     $newModelStatusApprovalDriverRequire->status_approval_driver_id = $model->id;
@@ -155,7 +155,7 @@ class StatusApprovalDriverController extends BaseController
 
                             if ($i !== 'index') {
 
-                                if (empty($statusApprovalDriverAction)) {
+                                if (empty($statusApprovalDriverAction['id'])) {
 
                                     $newModelStatusApprovalDriverAction = new StatusApprovalDriverAction();
                                     $newModelStatusApprovalDriverAction->status_approval_driver_id = $model->id;
@@ -185,7 +185,7 @@ class StatusApprovalDriverController extends BaseController
 
                             if ($i !== 'index') {
 
-                                if (empty($statusApprovalDriverRequireAction)) {
+                                if (empty($statusApprovalDriverRequireAction['id'])) {
 
                                     $newModelStatusApprovalDriverRequireAction = new StatusApprovalDriverRequireAction();
                                     $newModelStatusApprovalDriverRequireAction->status_approval_driver_id = $model->id;
@@ -255,22 +255,209 @@ class StatusApprovalDriverController extends BaseController
                 return ActiveForm::validate($model);
             } else {
 
+                $transaction = \Yii::$app->db->beginTransaction();
+                $flag = false;
+
+                $model->condition = !empty($model->condition);
+
+                $flag = $model->save();
+
+                if ($flag) {
+
+                    if (!empty($post['StatusApprovalDriverRequire'])) {
+
+                        $modelStatusApprovalDriverRequire = [];
+
+                        foreach ($post['StatusApprovalDriverRequire'] as $i => $statusApprovalDriverRequire) {
+
+                            if ($i !== 'index') {
+
+                                if (empty($statusApprovalDriverRequire['id'])) {
+
+                                    $newModelStatusApprovalDriverRequire = new StatusApprovalDriverRequire();
+                                    $newModelStatusApprovalDriverRequire->status_approval_driver_id = $model->id;
+                                    $newModelStatusApprovalDriverRequire->require_status_approval_driver_id = $statusApprovalDriverRequire['require_status_approval_driver_id'];
+
+                                    if (($flag = $newModelStatusApprovalDriverRequire->save())) {
+
+                                        array_push($modelStatusApprovalDriverRequire, $newModelStatusApprovalDriverRequire);
+                                    } else {
+
+                                        break;
+                                    }
+                                } else {
+
+                                    foreach ($model->statusApprovalDriverRequires as $dataModelStatusApprovalDriverRequire) {
+
+                                        if ($statusApprovalDriverRequire['id'] == $dataModelStatusApprovalDriverRequire->id) {
+
+                                            if (empty($statusApprovalDriverRequire['delete']['id'])) {
+
+                                                $dataModelStatusApprovalDriverRequire->require_status_approval_driver_id = $statusApprovalDriverRequire['require_status_approval_driver_id'];
+
+                                                if (($flag = $dataModelStatusApprovalDriverRequire->save())) {
+
+                                                    array_push($modelStatusApprovalDriverRequire, $dataModelStatusApprovalDriverRequire);
+                                                } else {
+
+                                                    break 2;
+                                                }
+                                            } else {
+
+                                                if (!($flag = $dataModelStatusApprovalDriverRequire->delete())) {
+
+                                                    break 2;
+                                                }
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($flag) {
+
+                    if (!empty($post['StatusApprovalDriverAction'])) {
+
+                        $modelStatusApprovalDriverAction = [];
+
+                        foreach ($post['StatusApprovalDriverAction'] as $i => $statusApprovalDriverAction) {
+
+                            if ($i !== 'index') {
+
+                                if (empty($statusApprovalDriverAction['id'])) {
+
+                                    $newModelStatusApprovalDriverAction = new StatusApprovalDriverAction();
+                                    $newModelStatusApprovalDriverAction->status_approval_driver_id = $model->id;
+                                    $newModelStatusApprovalDriverAction->name = $statusApprovalDriverAction['name'];
+                                    $newModelStatusApprovalDriverAction->url = $statusApprovalDriverAction['url'];
+
+                                    if (($flag = $newModelStatusApprovalDriverAction->save())) {
+
+                                        array_push($modelStatusApprovalDriverAction, $newModelStatusApprovalDriverAction);
+                                    } else {
+
+                                        break;
+                                    }
+                                } else {
+
+                                    foreach ($model->statusApprovalDriverActions as $dataModelStatusApprovalDriverAction) {
+
+                                        if ($statusApprovalDriverAction['id'] == $dataModelStatusApprovalDriverAction->id) {
+
+                                            if (empty($statusApprovalDriverAction['delete']['id'])) {
+
+                                                $dataModelStatusApprovalDriverAction->name = $statusApprovalDriverAction['name'];
+                                                $dataModelStatusApprovalDriverAction->url = $statusApprovalDriverAction['url'];
+
+                                                if (($flag = $dataModelStatusApprovalDriverAction->save())) {
+
+                                                    array_push($modelStatusApprovalDriverAction, $dataModelStatusApprovalDriverAction);
+                                                } else {
+
+                                                    break 2;
+                                                }
+                                            } else {
+
+                                                if (!($flag = $dataModelStatusApprovalDriverAction->delete())) {
+
+                                                    break 2;
+                                                }
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($flag) {
+
+                    if (!empty($post['StatusApprovalDriverRequireAction'])) {
+
+                        $modelStatusApprovalDriverRequireAction = [];
+
+                        foreach ($post['StatusApprovalDriverRequireAction'] as $i => $statusApprovalDriverRequireAction) {
+
+                            if ($i !== 'index') {
+
+                                if (empty($statusApprovalDriverRequireAction['id'])) {
+
+                                    $newModelStatusApprovalDriverRequireAction = new StatusApprovalDriverRequireAction();
+                                    $newModelStatusApprovalDriverRequireAction->status_approval_driver_id = $model->id;
+                                    $newModelStatusApprovalDriverRequireAction->status_approval_driver_action_id = $statusApprovalDriverRequireAction['status_approval_driver_action_id'];
+
+                                    if (($flag = $newModelStatusApprovalDriverRequireAction->save())) {
+
+                                        array_push($modelStatusApprovalDriverRequireAction, $newModelStatusApprovalDriverRequireAction);
+                                    } else {
+
+                                        break;
+                                    }
+                                } else {
+
+                                    foreach ($model->statusApprovalDriverRequireActions as $dataModelStatusApprovalDriverRequireAction) {
+
+                                        if ($statusApprovalDriverRequireAction['id'] == $dataModelStatusApprovalDriverRequireAction->id) {
+
+                                            if (empty($statusApprovalDriverRequireAction['delete']['id'])) {
+
+                                                $dataModelStatusApprovalDriverRequireAction->status_approval_driver_action_id = $statusApprovalDriverRequireAction['status_approval_driver_action_id'];
+
+                                                if (($flag = $dataModelStatusApprovalDriverRequireAction->save())) {
+
+                                                    array_push($modelStatusApprovalDriverRequireAction, $dataModelStatusApprovalDriverRequireAction);
+                                                } else {
+
+                                                    break 2;
+                                                }
+                                            } else {
+
+                                                if (!($flag = $dataModelStatusApprovalDriverRequireAction->delete())) {
+
+                                                    break 2;
+                                                }
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if ($model->save()) {
 
                     \Yii::$app->session->setFlash('status', 'success');
                     \Yii::$app->session->setFlash('message1', \Yii::t('app', 'Update Data Is Success'));
                     \Yii::$app->session->setFlash('message2', \Yii::t('app', 'Update data process is success. Data has been saved'));
+
+                    $transaction->commit();
                 } else {
 
                     \Yii::$app->session->setFlash('status', 'danger');
                     \Yii::$app->session->setFlash('message1', \Yii::t('app', 'Update Data Is Fail'));
                     \Yii::$app->session->setFlash('message2', \Yii::t('app', 'Update data process is fail. Data fail to save'));
+
+                    $transaction->rollBack();
                 }
             }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelStatusApprovalDriverRequire' => !empty($modelStatusApprovalDriverRequire) ? $modelStatusApprovalDriverRequire : new StatusApprovalDriverRequire(),
+            'modelStatusApprovalDriverAction' => !empty($modelStatusApprovalDriverAction) ? $modelStatusApprovalDriverAction : new StatusApprovalDriverAction(),
+            'modelStatusApprovalDriverRequireAction' => !empty($modelStatusApprovalDriverRequireAction) ? $modelStatusApprovalDriverRequireAction : new StatusApprovalDriverRequireAction(),
         ]);
     }
 
@@ -290,7 +477,7 @@ class StatusApprovalDriverController extends BaseController
 
             try {
                 $flag = $model->delete();
-            } catch (yii\db\Exception $exc) {
+            } catch (\yii\db\Exception $exc) {
                 $error = \Yii::$app->params['errMysql'][$exc->errorInfo[1]];
             }
         }
@@ -309,10 +496,91 @@ class StatusApprovalDriverController extends BaseController
 
         $return = [];
 
-        $return['url'] = \Yii::$app->urlManager->createUrl(['status-approval-driver/index']);
+        $return['url'] = \Yii::$app->urlManager->createUrl([$this->module->id . '/status-approval-driver/index']);
 
         \Yii::$app->response->format = Response::FORMAT_JSON;
         return $return;
+    }
+
+    public function actionUp($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->order > 1) {
+
+            $transaction = \Yii::$app->db->beginTransaction();
+            $flag = false;
+
+            $modelTemp = StatusApprovalDriver::findOne(['order' => $model->order - 1]);
+            $modelTemp->order = $model->order;
+
+            $model->order = 0;
+
+            if (($flag = $model->save())) {
+
+                if (($flag = $modelTemp->save())) {
+
+                    $model->order = $modelTemp->order - 1;
+
+                    $flag = $model->save();
+                }
+            }
+
+            if ($flag) {
+
+                $transaction->commit();
+            } else {
+
+                \Yii::$app->session->setFlash('status', 'danger');
+                \Yii::$app->session->setFlash('message1', \Yii::t('app', 'Update Data Is Fail'));
+                \Yii::$app->session->setFlash('message2', \Yii::t('app', 'Update data process is fail. Data fail to save'));
+
+                $transaction->rollBack();
+            }
+        }
+
+        return AjaxRequest::redirect($this, \Yii::$app->urlManager->createUrl(['masterdata/status-approval-driver/index']));
+    }
+
+    public function actionDown($id)
+    {
+        $model = $this->findModel($id);
+
+        $modelTemp = StatusApprovalDriver::findOne(['order' => $model->order + 1]);
+
+        if ($modelTemp !== null) {
+
+            $transaction = \Yii::$app->db->beginTransaction();
+            $flag = false;
+
+            $modelTemp->order = $model->order;
+
+            $model->order = 0;
+
+            if (($flag = $model->save())) {
+
+                if (($flag = $modelTemp->save())) {
+
+                    $model->order = $modelTemp->order + 1;
+
+                    $flag = $model->save();
+                }
+            }
+
+            if ($flag) {
+
+                $transaction->commit();
+            } else {
+
+                \Yii::$app->session->setFlash('status', 'danger');
+                \Yii::$app->session->setFlash('message1', \Yii::t('app', 'Update Data Is Fail'));
+                \Yii::$app->session->setFlash('message2', \Yii::t('app', 'Update data process is fail. Data fail to save'));
+
+                $transaction->rollBack();
+            }
+        }
+
+        return AjaxRequest::redirect($this, \Yii::$app->urlManager->createUrl(['masterdata/status-approval-driver/index']));
     }
 
     /**

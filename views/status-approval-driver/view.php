@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
 use sycomponent\AjaxRequest;
 use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\StatusApprovalDriver */
@@ -67,21 +67,21 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'class' => 'table'
                         ],
                         'attributes' => [
-                                        'id',
-            'name',
-            'note:ntext',
-            'instruction:ntext',
-            'status',
-            'order',
-            'condition:boolean',
-            'branch',
-            'group',
-            'not_active:boolean',
-            'execute_action:ntext',
-            'created_at',
-            'user_created',
-            'updated_at',
-            'user_updated',
+                            'id',
+                            'name',
+                            'note:ntext',
+                            'instruction:ntext',
+                            'status',
+                            'order',
+                            'condition:boolean',
+                            'branch',
+                            'group',
+                            'not_active:boolean',
+                            'execute_action:ntext',
+                            'created_at',
+                            'user_created',
+                            'updated_at',
+                            'user_updated',
                         ],
                     ]) ?>
 

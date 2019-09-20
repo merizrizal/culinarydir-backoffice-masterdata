@@ -94,13 +94,13 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                 'template' => '
                     <div class="btn-container hide">
                         <div class="visible-lg visible-md">
-                            <div class="btn-group btn-group-md" role="group" style="width: 120px">
-                                {view}{update}{delete}
+                            <div class="btn-group btn-group-md" role="group" style="width: 195px">
+                                {view}{update}{delete}{up}{down}
                             </div>
                         </div>
                         <div class="visible-sm visible-xs">
-                            <div class="btn-group btn-group-lg" role="group" style="width: 156px">
-                                {view}{update}{delete}
+                            <div class="btn-group btn-group-lg" role="group" style="width: 260px">
+                                {view}{update}{delete}{up}{down}
                             </div>
                         </div>
                     </div>',
@@ -133,6 +133,24 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                             'title' => 'Delete',
                             'model-id' => $model->id,
                             'model-name' => $model->name,
+                        ]);
+                    },
+                    'up' => function($url, $model, $key) {
+                        return Html::a('<i class="fa fa-arrow-up"></i>', ['up', 'id' => $model->id], [
+                            'id' => 'view',
+                            'class' => 'btn btn-default',
+                            'data-toggle' => 'tooltip',
+                            'data-placement' => 'top',
+                            'title' => 'Up',
+                        ]);
+                    },
+                    'down' => function($url, $model, $key) {
+                        return Html::a('<i class="fa fa-arrow-down"></i>', ['down', 'id' => $model->id], [
+                            'id' => 'update',
+                            'class' => 'btn btn-default',
+                            'data-toggle' => 'tooltip',
+                            'data-placement' => 'top',
+                            'title' => 'Down',
                         ]);
                     },
                 ]
