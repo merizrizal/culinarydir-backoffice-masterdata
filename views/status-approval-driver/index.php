@@ -33,7 +33,7 @@ if ($status !== null) {
 }
 
 $this->title = \Yii::t('app', 'Status Approval') . " : " . \Yii::t('app', 'Driver');
-$this->params['breadcrumbs'][] = $this->title; ?>
+$this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
 
 <?= $ajaxRequest->component(true) ?>
 

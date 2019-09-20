@@ -33,7 +33,7 @@ if ($status !== null) :
 endif;
 
 $this->title = Yii::t('app', 'Status Approval') . " : " . \Yii::t('app', 'Business');
-$this->params['breadcrumbs'][] = $this->title; ?>
+$this->params['breadcrumbs'][] = \Yii::t('app', 'Business'); ?>
 
 <?= $ajaxRequest->component(true) ?>
 

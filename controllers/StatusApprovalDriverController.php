@@ -243,8 +243,11 @@ class StatusApprovalDriverController extends BaseController
     public function actionUpdate($id, $save = null)
     {
         $model = $this->findModel($id);
+        $modelStatusApprovalDriverRequire = !empty($model->statusApprovalDriverRequires) ? $model->statusApprovalDriverRequires : new StatusApprovalDriverRequire();
+        $modelStatusApprovalDriverAction = !empty($model->statusApprovalDriverActions) ? $model->statusApprovalDriverActions : new StatusApprovalDriverAction();
+        $modelStatusApprovalDriverRequireAction = !empty($model->statusApprovalDriverRequireActions) ? $model->statusApprovalDriverRequireActions : new StatusApprovalDriverRequireAction();
 
-        if ($model->load(\Yii::$app->request->post())) {
+        if ($model->load(($post = \Yii::$app->request->post()))) {
 
             if (empty($save)) {
 
