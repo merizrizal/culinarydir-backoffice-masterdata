@@ -150,9 +150,9 @@ $dynamicFormStatusApprovalDriverRequireAction = new DynamicFormField([
 
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'note')->textarea(['rows' => 3]) ?>
 
-                    <?= $form->field($model, 'instruction')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'instruction')->textarea(['rows' => 3]) ?>
 
                     <?= $form->field($model, 'status')->dropDownList([ 'Finished-Success' => 'Finished-Success', 'Finished-Fail' => 'Finished-Fail', 'Unfinished' => 'Unfinished', ], ['prompt' => '']) ?>
 
