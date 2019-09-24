@@ -61,19 +61,19 @@ class StatusApprovalDriverController extends BaseController
     public function actionView($id)
     {
         $dataProviderStatusApprovalDriverRequire = new ActiveDataProvider([
-            'query' => StatusApprovalDriver::find()->joinWith(['requireStatusApprovalDriver'])->andWhere(['status_approval_driver_require.status_approval_driver_id' => $id]),
+            'query' => StatusApprovalDriverRequire::find()->joinWith(['requireStatusApprovalDriver'])->andWhere(['status_approval_driver_require.status_approval_driver_id' => $id]),
             'pagination' => false,
             'sort' => false
         ]);
 
         $dataProviderStatusApprovalDriverAction = new ActiveDataProvider([
-            'query' => StatusApprovalDriver::find()->andWhere(['status_approval_driver_action.status_approval_driver_id' => $id]),
+            'query' => StatusApprovalDriverAction::find()->andWhere(['status_approval_driver_action.status_approval_driver_id' => $id]),
             'pagination' => false,
             'sort' => false
         ]);
 
         $dataProviderStatusApprovalDriverRequireAction = new ActiveDataProvider([
-            'query' => StatusApprovalDriver::find()->joinWith(['statusApprovalDriverAction'])->andWhere(['status_approval_driver_require_action.status_approval_driver_id' => $id]),
+            'query' => StatusApprovalDriverRequireAction::find()->joinWith(['statusApprovalDriverAction'])->andWhere(['status_approval_driver_require_action.status_approval_driver_id' => $id]),
             'pagination' => false,
             'sort' => false
         ]);
@@ -83,9 +83,9 @@ class StatusApprovalDriverController extends BaseController
             'modelStatusApprovalDriverRequire' => new StatusApprovalDriverRequire(),
             'dataProviderStatusApprovalDriverRequire' => $dataProviderStatusApprovalDriverRequire,
             'modelStatusApprovalDriverAction' => new StatusApprovalDriverAction(),
-            'dataProviderStatusApprovalAction' => $dataProviderStatusApprovalDriverAction,
+            'dataProviderStatusApprovalDriverAction' => $dataProviderStatusApprovalDriverAction,
             'modelStatusApprovalDriverRequireAction' => new StatusApprovalDriverRequireAction(),
-            'dataProviderStatusApprovalDriverRequireAction' => $dataProviderStatusApprovalDriverRequireAction
+            'dataProviderStatusApprovalDriverRequireAction' => $dataProviderStatusApprovalDriverRequireAction,
         ]);
     }
 

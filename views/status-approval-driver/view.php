@@ -1,5 +1,6 @@
 <?php
 
+use backoffice\components\DynamicTable;
 use sycomponent\AjaxRequest;
 use sycomponent\ModalDialog;
 use sycomponent\NotificationDialog;
@@ -8,12 +9,51 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model core\models\StatusApprovalDriver */
+/* @var $modelStatusApprovalDriverRequire core\models\StatusApprovalDriverRequire */
+/* @var $modelStatusApprovalDriverAction core\models\StatusApprovalDriverAction */
+/* @var $modelStatusApprovalDriverRequireAction core\models\StatusApprovalDriverRequireAction */
+/* @var $dataProviderStatusApprovalDriverRequire yii\data\ActiveDataProvider */
+/* @var $dataProviderStatusApprovalDriverAction yii\data\ActiveDataProvider */
+/* @var $dataProviderStatusApprovalDriverRequireAction yii\data\ActiveDataProvider */
 
 $ajaxRequest = new AjaxRequest([
     'modelClass' => 'StatusApprovalDriver',
 ]);
 
 $ajaxRequest->view();
+
+$dynamicTableStatusApprovalDriverRequire = new DynamicTable([
+    'model' => $modelStatusApprovalDriverRequire,
+    'tableFields' => [
+        'requireStatusApprovalDriver.id',
+        'requireStatusApprovalDriver.name',
+    ],
+    'dataProvider' => $dataProviderStatusApprovalDriverRequire,
+    'title' => 'Status Approval Require',
+    'columnClass' => 'col-sm-12'
+]);
+
+$dynamicTableStatusApprovalDriverAction = new DynamicTable([
+    'model' => $modelStatusApprovalDriverAction,
+    'tableFields' => [
+        'name',
+        'url',
+    ],
+    'dataProvider' => $dataProviderStatusApprovalDriverAction,
+    'title' => 'Status Approval Action',
+    'columnClass' => 'col-sm-12'
+]);
+
+$dynamicTableStatusApprovalDriverRequireAction = new DynamicTable([
+    'model' => $modelStatusApprovalDriverRequireAction,
+    'tableFields' => [
+        'statusApprovalDriverAction.name',
+        'statusApprovalDriverAction.url',
+    ],
+    'dataProvider' => $dataProviderStatusApprovalDriverRequireAction,
+    'title' => 'Status Approval Require Action',
+    'columnClass' => 'col-sm-12'
+]);
 
 $status = \Yii::$app->session->getFlash('status');
 $message1 = \Yii::$app->session->getFlash('message1');
@@ -73,23 +113,32 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'instruction:ntext',
                             'status',
                             'order',
-                            'condition:boolean',
+                            [
+                                'attribute' => 'condition',
+                                'format' => 'raw',
+                                'value' => $model->condition ? 'True' : 'False',
+                            ],
                             'branch',
                             'group',
-                            'not_active:boolean',
+                            [
+                                'attribute' => 'not_active',
+                                'format' => 'raw',
+                                'value' => Html::checkbox('not_active', $model->not_active, ['value' => $model->not_active, 'disabled' => 'disabled']),
+                            ],
                             'execute_action:ntext',
-                            'created_at',
-                            'user_created',
-                            'updated_at',
-                            'user_updated',
                         ],
                     ]) ?>
 
                 </div>
-
             </div>
         </div>
     </div>
+
+	<?= $dynamicTableStatusApprovalDriverRequire->tableData() ?>
+
+    <?= $dynamicTableStatusApprovalDriverAction->tableData() ?>
+
+    <?= $dynamicTableStatusApprovalDriverRequireAction->tableData() ?>
 
 </div>
 
@@ -102,4 +151,14 @@ $modalDialog = new ModalDialog([
 
 $modalDialog->theScript(false);
 
-echo $modalDialog->renderDialog(); ?>
+echo $modalDialog->renderDialog();
+
+$this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/skins/all.css', ['depends' => 'yii\web\YiiAsset']);
+
+$this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
+
+$jscript = Yii::$app->params['checkbox-radio-script']()
+. '$(".iCheck-helper").parent().removeClass("disabled");
+';
+
+$this->registerJs($jscript); ?>
