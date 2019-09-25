@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                             'data-not-ajax' => 1,
                             'model-id' => $model->id,
                             'model-name' => $model->name,
-                        ]) ?>
+                    ]) ?>
 
                     <?= Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']) ?>
 
@@ -156,8 +156,8 @@ $this->registerCssFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/
 
 $this->registerJsFile($this->params['assetCommon']->baseUrl . '/plugins/icheck/icheck.min.js', ['depends' => 'yii\web\YiiAsset']);
 
-$jscript = Yii::$app->params['checkbox-radio-script']()
-. '$(".iCheck-helper").parent().removeClass("disabled");
+$jscript = \Yii::$app->params['checkbox-radio-script']()
+    . '$(".iCheck-helper").parent().removeClass("disabled");
 ';
 
 $this->registerJs($jscript); ?>

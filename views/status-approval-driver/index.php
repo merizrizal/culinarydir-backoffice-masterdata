@@ -21,6 +21,7 @@ $message1 = \Yii::$app->session->getFlash('message1');
 $message2 = \Yii::$app->session->getFlash('message2');
 
 if ($status !== null) {
+
     $notif = new NotificationDialog([
         'status' => $status,
         'message1' => $message1,
@@ -31,7 +32,7 @@ if ($status !== null) {
     echo $notif->renderDialog();
 }
 
-$this->title = \Yii::t('app', 'Status Approval') . " : " . \Yii::t('app', 'Driver');
+$this->title = \Yii::t('app', 'Status Approval Driver');
 $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
 
 <?= $ajaxRequest->component(true) ?>
@@ -105,6 +106,7 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                     </div>',
                 'buttons' => [
                     'view' => function($url, $model, $key) {
+
                         return Html::a('<i class="fa fa-search-plus"></i>', $url, [
                             'id' => 'view',
                             'class' => 'btn btn-primary',
@@ -114,6 +116,7 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                         ]);
                     },
                     'update' => function($url, $model, $key) {
+
                         return Html::a('<i class="fa fa-pencil-alt"></i>', $url, [
                             'id' => 'update',
                             'class' => 'btn btn-success',
@@ -123,6 +126,7 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                         ]);
                     },
                     'delete' => function($url, $model, $key) {
+
                         return Html::a('<i class="fa fa-trash-alt"></i>', $url, [
                             'id' => 'delete',
                             'class' => 'btn btn-danger',
@@ -135,6 +139,7 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                         ]);
                     },
                     'up' => function($url, $model, $key) {
+
                         return Html::a('<i class="fa fa-arrow-up"></i>', ['up', 'id' => $model->id], [
                             'id' => 'view',
                             'class' => 'btn btn-default',
@@ -144,6 +149,7 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
                         ]);
                     },
                     'down' => function($url, $model, $key) {
+
                         return Html::a('<i class="fa fa-arrow-down"></i>', ['down', 'id' => $model->id], [
                             'id' => 'update',
                             'class' => 'btn btn-default',
@@ -159,6 +165,7 @@ $this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
             'class' => 'table table-striped table-hover'
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
+
             return ['id' => $model['id'], 'class' => 'row-grid-view-status-approval-driver', 'style' => 'cursor: pointer;'];
         },
         'pager' => [

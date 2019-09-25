@@ -41,9 +41,9 @@ if ($status !== null) {
     echo $notif->renderDialog();
 } ?>
 
-<?= $ajaxRequest->component() ?>
-
 <?php
+echo $ajaxRequest->component();
+
 $form = ActiveForm::begin([
     'id' => 'status-approval-driver-form',
     'action' => $model->isNewRecord ? ['create'] : ['update', 'id' => $model->id],
@@ -158,7 +158,7 @@ $dynamicFormStatusApprovalDriverRequireAction = new DynamicFormField([
 
                     <?= $form->field($model, 'order')->textInput() ?>
 
-                    <?= $form->field($model, 'condition')->radioList([true => 'True', null => 'False'], ['sepparator' => '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;']) ?>
+                    <?= $form->field($model, 'condition')->radioList([true => 'True', null => 'False'], ['separator' => '&emsp; &emsp;']) ?>
 
                     <?= $form->field($model, 'branch')->textInput() ?>
 

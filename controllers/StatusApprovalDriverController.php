@@ -2,7 +2,6 @@
 
 namespace backoffice\modules\masterdata\controllers;
 
-use backoffice\controllers\BaseController;
 use core\models\StatusApprovalDriver;
 use core\models\StatusApprovalDriverAction;
 use core\models\StatusApprovalDriverRequire;
@@ -18,7 +17,7 @@ use yii\widgets\ActiveForm;
 /**
  * StatusApprovalDriverController implements the CRUD actions for StatusApprovalDriver model.
  */
-class StatusApprovalDriverController extends BaseController
+class StatusApprovalDriverController extends \backoffice\controllers\BaseController
 {
     /**
      * @inheritdoc
@@ -114,9 +113,7 @@ class StatusApprovalDriverController extends BaseController
 
                 $model->condition = !empty($model->condition);
 
-                $flag = $model->save();
-
-                if ($flag) {
+                if (($flag = $model->save())) {
 
                     if (!empty($post['StatusApprovalDriverRequire'])) {
 
@@ -162,7 +159,7 @@ class StatusApprovalDriverController extends BaseController
                                     $newModelStatusApprovalDriverAction->name = $statusApprovalDriverAction['name'];
                                     $newModelStatusApprovalDriverAction->url = $statusApprovalDriverAction['url'];
 
-                                    if ($flag = $newModelStatusApprovalDriverAction->save()) {
+                                    if (($flag = $newModelStatusApprovalDriverAction->save())) {
 
                                         array_push($modelStatusApprovalDriverAction, $newModelStatusApprovalDriverAction);
                                     } else {
@@ -191,7 +188,7 @@ class StatusApprovalDriverController extends BaseController
                                     $newModelStatusApprovalDriverRequireAction->status_approval_driver_id = $model->id;
                                     $newModelStatusApprovalDriverRequireAction->status_approval_driver_action_id = $statusApprovalDriverRequireAction['status_approval_driver_action_id'];
 
-                                    if ($flag = $newModelStatusApprovalDriverRequireAction->save()) {
+                                    if (($flag = $newModelStatusApprovalDriverRequireAction->save())) {
 
                                         array_push($modelStatusApprovalDriverRequireAction, $newModelStatusApprovalDriverRequireAction);
                                     } else {
@@ -260,9 +257,7 @@ class StatusApprovalDriverController extends BaseController
 
                 $model->condition = !empty($model->condition);
 
-                $flag = $model->save();
-
-                if ($flag) {
+                if (($flag = $model->save())) {
 
                     if (!empty($post['StatusApprovalDriverRequire'])) {
 
@@ -435,7 +430,7 @@ class StatusApprovalDriverController extends BaseController
                     }
                 }
 
-                if ($model->save()) {
+                if ($flag) {
 
                     \Yii::$app->session->setFlash('status', 'success');
                     \Yii::$app->session->setFlash('message1', \Yii::t('app', 'Update Data Is Success'));
@@ -548,7 +543,7 @@ class StatusApprovalDriverController extends BaseController
 
         $modelTemp = StatusApprovalDriver::findOne(['order' => $model->order + 1]);
 
-        if ($modelTemp !== null) {
+        if ($modelTemp !== 0) {
 
             $transaction = \Yii::$app->db->beginTransaction();
             $flag = false;
