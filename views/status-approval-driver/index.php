@@ -29,7 +29,6 @@ if ($status !== null) {
 
     $notif->theScript();
     echo $notif->renderDialog();
-
 }
 
 $this->title = \Yii::t('app', 'Status Approval') . " : " . \Yii::t('app', 'Driver');

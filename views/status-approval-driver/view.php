@@ -82,7 +82,6 @@ $this->params['breadcrumbs'][] = $this->title; ?>
     <div class="row">
         <div class="col-sm-12">
             <div class="x_panel">
-
                 <div class="x_content">
 
                     <?= Html::a('<i class="fa fa-upload"></i> Create', ['create'], ['class' => 'btn btn-success']) ?>

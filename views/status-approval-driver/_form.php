@@ -154,7 +154,7 @@ $dynamicFormStatusApprovalDriverRequireAction = new DynamicFormField([
 
                     <?= $form->field($model, 'instruction')->textarea(['rows' => 3]) ?>
 
-                    <?= $form->field($model, 'status')->dropDownList([ 'Finished-Success' => 'Finished-Success', 'Finished-Fail' => 'Finished-Fail', 'Unfinished' => 'Unfinished', ], ['prompt' => '']) ?>
+                    <?= $form->field($model, 'status')->dropDownList(['Finished-Success' => 'Finished-Success', 'Finished-Fail' => 'Finished-Fail', 'Unfinished' => 'Unfinished', ], ['prompt' => '']) ?>
 
                     <?= $form->field($model, 'order')->textInput() ?>
 
@@ -168,6 +168,18 @@ $dynamicFormStatusApprovalDriverRequireAction = new DynamicFormField([
 
                     <?= $form->field($model, 'execute_action')->textarea(['rows' => 3]) ?>
 
+					<div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-offset-3 col-lg-6">
+
+                                <?php
+                                $icon = '<i class="fa fa-save"></i> ';
+                                echo Html::submitButton($model->isNewRecord ? $icon . 'Save' : $icon . 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
+                                echo Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']); ?>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,7 +198,7 @@ $dynamicFormStatusApprovalDriverRequireAction = new DynamicFormField([
             <div class="x_content">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-offset-3 col-lg-6">
 
                             <?php
                             $icon = '<i class="fa fa-save"></i> ';
