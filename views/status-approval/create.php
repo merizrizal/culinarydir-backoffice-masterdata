@@ -9,6 +9,7 @@
 $this->title = 'Create ' . Yii::t('app', 'Status Approval Business');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Status Approval Business'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title; ?>
+
 <div class="status-approval-create">
 
     <?= $this->render('_form', [

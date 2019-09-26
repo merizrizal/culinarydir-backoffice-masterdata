@@ -9,8 +9,8 @@
 $this->title = 'Update ' . Yii::t('app', 'Status Approval Business') . ' : ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Status Approval Business'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
-?>
+$this->params['breadcrumbs'][] = 'Update'; ?>
+
 <div class="status-approval-update">
 
     <?= $this->render('_form', [

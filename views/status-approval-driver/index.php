@@ -44,9 +44,9 @@ echo $ajaxRequest->component(true); ?>
         'clickedComponent' => 'a#delete',
         'modelAttributeId' => 'model-id',
         'modelAttributeName' => 'model-name',
-    ]); ?>
+    ]);
 
-    <?= GridView::widget([
+    echo GridView::widget([
         'id' => 'grid-view-status-approval-driver',
         'dataProvider' => $dataProvider,
         'pjax' => false,
@@ -178,9 +178,9 @@ echo $ajaxRequest->component(true); ?>
 
 </div>
 
-<?= $modalDialog->renderDialog() ?>
-
 <?php
+echo $modalDialog->renderDialog();
+
 $jscript = ''
     . $modalDialog->getScript() . '
 

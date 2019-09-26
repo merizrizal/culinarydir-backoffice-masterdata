@@ -73,9 +73,9 @@ if ($status !== null) {
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('app', 'Status Approval Driver'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title; ?>
+$this->params['breadcrumbs'][] = $this->title;
 
-<?= $ajaxRequest->component() ?>
+echo $ajaxRequest->component(); ?>
 
 <div class="status-approval-driver-view">
 

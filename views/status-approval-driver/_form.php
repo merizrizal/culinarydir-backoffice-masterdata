@@ -39,9 +39,8 @@ if ($status !== null) {
 
     $notif->theScript();
     echo $notif->renderDialog();
-} ?>
+}
 
-<?php
 echo $ajaxRequest->component();
 
 $form = ActiveForm::begin([
