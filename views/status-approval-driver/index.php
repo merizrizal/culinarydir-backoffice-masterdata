@@ -32,10 +32,10 @@ if ($status !== null) {
     echo $notif->renderDialog();
 }
 
-$this->title = \Yii::t('app', 'Status Approval Driver');
-$this->params['breadcrumbs'][] = \Yii::t('app', 'Driver'); ?>
+$this->title = \Yii::t('app', 'Status Approval') . ' : ' . \Yii::t('app', 'Driver');
+$this->params['breadcrumbs'][] = \Yii::t('app', 'Status Approval Driver');
 
-<?= $ajaxRequest->component(true) ?>
+echo $ajaxRequest->component(true); ?>
 
 <div class="status-approval-driver-index">
 

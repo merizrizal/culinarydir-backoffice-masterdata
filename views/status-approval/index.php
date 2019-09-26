@@ -32,10 +32,10 @@ if ($status !== null) :
 
 endif;
 
-$this->title = Yii::t('app', 'Status Approval Business');
-$this->params['breadcrumbs'][] = \Yii::t('app', 'Business'); ?>
+$this->title = Yii::t('app', 'Status Approval') . ' : ' . \Yii::t('app', 'Business');
+$this->params['breadcrumbs'][] = \Yii::t('app', 'Status Approval Business');
 
-<?= $ajaxRequest->component(true) ?>
+echo $ajaxRequest->component(true); ?>
 
 <div class="status-approval-index">
 

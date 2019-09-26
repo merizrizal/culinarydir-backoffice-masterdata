@@ -89,11 +89,11 @@ $this->params['breadcrumbs'][] = $this->title; ?>
                     <?= Html::a('<i class="fa fa-pencil-alt"></i> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
                     <?= Html::a('<i class="fa fa-trash-alt"></i> Delete', ['delete', 'id' => $model->id], [
-                            'id' => 'delete',
-                            'class' => 'btn btn-danger',
-                            'data-not-ajax' => 1,
-                            'model-id' => $model->id,
-                            'model-name' => $model->name,
+                        'id' => 'delete',
+                        'class' => 'btn btn-danger',
+                        'data-not-ajax' => 1,
+                        'model-id' => $model->id,
+                        'model-name' => $model->name,
                     ]) ?>
 
                     <?= Html::a('<i class="fa fa-times"></i> Cancel', ['index'], ['class' => 'btn btn-default']) ?>

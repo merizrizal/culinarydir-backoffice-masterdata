@@ -543,7 +543,7 @@ class StatusApprovalDriverController extends \backoffice\controllers\BaseControl
 
         $modelTemp = StatusApprovalDriver::findOne(['order' => $model->order + 1]);
 
-        if ($modelTemp !== 0) {
+        if (!empty($modelTemp)) {
 
             $transaction = \Yii::$app->db->beginTransaction();
             $flag = false;
